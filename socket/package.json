@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "csv-parser": "^2.3.3"
+    "csv-parser": "^2.3.3",
+    "socket.io": "^2.3.0"
   }
 }
