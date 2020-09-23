@@ -77,14 +77,58 @@ const Chart = ({gyroXData, gyroYData, gyroZData }) => {
           ]
         }}
         options={{
+          responsive: true,
+          animation: {
+            duration: 0
+          },
+          responsiveAnimationDuration: 0, // animation duration after a resize
+          elements: {
+            line: {
+              tension: 0
+            }
+          },
           title:{
             display:true,
             text:'Sensor data',
             fontSize:25
           },
+          tooltips: {
+            mode: 'index',
+            intersect: true
+          },
+          hover: {
+            mode: 'nearest',
+            intersect: true
+          },
           legend:{
             display:true,
-            position:'right'
+            position:'top'
+          },
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                displayFormats: {
+                  millisecond: 'mm:ss:SSS'
+                }
+              },
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Time'
+              }
+            }],
+            yAxes: [{
+              display: true,
+              ticks: {
+                suggestedMin: -40000,
+                suggestedMax:  40000
+              },
+              scaleLabel: {
+                display: true,
+                labelString: 'Coordinate'
+              }
+            }]
           }
         }}
       />
