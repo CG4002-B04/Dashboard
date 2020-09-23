@@ -2,8 +2,7 @@ var net = require('net');
 const readline = require('readline');
 const fs = require('fs');
 
-const filepath = "./csv/hair.csv"
-
+const filepath = "../db/csv/hair.csv"
 
 // creating a custom socket client and connecting it....
 var client  = new net.Socket();
@@ -23,10 +22,7 @@ client.on('connect',function(){
   console.log('Client ip : ' + ipaddr);
   console.log('Client is IP4/IP6: ' + family);
 
-
-  // writing data to server
-  client.write('hello from client');
-
+  console.log('Client connected');
 });
 
 client.setEncoding('utf8');
@@ -42,7 +38,7 @@ async function processLineByLine() {
   for await (const line of rl) {
     //console.log(`Line from file: ${line}`);
     client.write(line);
-    await sleep(1000);
+    await sleep(100);
   }
 }
 
