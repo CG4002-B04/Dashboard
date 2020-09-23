@@ -36,7 +36,6 @@ async function processLineByLine() {
   });
 
   for await (const line of rl) {
-    //console.log(`Line from file: ${line}`);
     client.write(line);
     await sleep(100);
   }

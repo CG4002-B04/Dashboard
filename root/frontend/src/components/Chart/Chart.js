@@ -1,7 +1,7 @@
 import React from 'react';
 import {Scatter} from 'react-chartjs-2';
 
-const Chart = ({ data, gyroXData, gyroYData, gyroZData }) => {
+const Chart = ({gyroXData, gyroYData, gyroZData }) => {
   return (
     <div className="chart">
       <Scatter
