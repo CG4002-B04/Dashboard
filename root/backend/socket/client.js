@@ -37,7 +37,7 @@ async function processLineByLine() {
 
   for await (const line of rl) {
     client.write(line);
-    await sleep(1000);
+    await sleep(200);
   }
 }
 

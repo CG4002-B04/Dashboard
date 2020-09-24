@@ -2,7 +2,22 @@ import React from 'react';
 import {Scatter} from 'react-chartjs-2';
 import "chartjs-plugin-streaming";
 
-const Chart = ({gyroXData, gyroYData, gyroZData }) => {
+import io from "socket.io-client";
+
+const ENDPOINT = 'http://localhost:5000';
+let socket = io(ENDPOINT);
+
+let gyroXData = 0;
+let gyroYData = 0;
+let gyroZData = 0;
+
+socket.on('data', dataPoint => {
+  console.log('incoming data');
+  gyroXData = dataPoint.gyroX;
+  gyroYData = dataPoint.gyroY;
+  gyroZData = dataPoint.gyroZ;
+})
+const Chart = () => {
   return (
     <div className="chart">
       <Scatter
@@ -101,37 +116,22 @@ const Chart = ({gyroXData, gyroYData, gyroZData }) => {
               realtime: {
                 duration: 20000,
                 ttl: 60000,
-                refresh: 1000,
-                delay: 2000,
+                refresh: 300,
+                delay: 1000,
                 pause: false,
                 onRefresh: function(chart) {
-                  console.log('refresh');
-                  /*
-                  chart.data.datasets.forEach(function(dataset) {
-                    //console.log(dataset);
-                    dataset.data.push({
-                      x: Date.now(),
-                      y: (Math.random() * 10000)
-                    });
-                  });
-                  */
-                  
                   chart.data.datasets[0].data.push({
                     x: Date.now(),
                     y: parseInt(gyroXData)
                   });
-                  console.log(gyroXData);
                   chart.data.datasets[1].data.push({
                     x: Date.now(),
                     y: parseInt(gyroYData)
                   });
-                  console.log(gyroYData);
                   chart.data.datasets[2].data.push({
                     x: Date.now(),
                     y: parseInt(gyroZData)
                   });
-                  console.log(gyroZData);
-                  console.log(chart.data.datasets[0].data);
                   
                 },
               },
