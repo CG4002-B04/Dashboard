@@ -1,5 +1,6 @@
 import React from 'react';
 import {Scatter} from 'react-chartjs-2';
+import "chartjs-plugin-streaming";
 
 const Chart = ({gyroXData, gyroYData, gyroZData }) => {
   return (
@@ -28,7 +29,7 @@ const Chart = ({gyroXData, gyroYData, gyroZData }) => {
               pointRadius: 1,
               pointHitRadius: 10,
               showLine: true,
-              data: gyroXData
+              data: []
             },
             {
               label: 'GyroY',
@@ -50,7 +51,7 @@ const Chart = ({gyroXData, gyroYData, gyroZData }) => {
               pointRadius: 1,
               pointHitRadius: 10,
               showLine: true,
-              data: gyroYData
+              data: []
             },
             {
               label: 'GyroZ',
@@ -72,21 +73,11 @@ const Chart = ({gyroXData, gyroYData, gyroZData }) => {
               pointRadius: 1,
               pointHitRadius: 10,
               showLine: true,
-              data: gyroZData
+              data: []
             }
           ]
         }}
         options={{
-          responsive: true,
-          animation: {
-            duration: 0
-          },
-          responsiveAnimationDuration: 0, // animation duration after a resize
-          elements: {
-            line: {
-              tension: 0
-            }
-          },
           title:{
             display:true,
             text:'Sensor data',
@@ -94,11 +85,11 @@ const Chart = ({gyroXData, gyroYData, gyroZData }) => {
           },
           tooltips: {
             mode: 'index',
-            intersect: true
+            intersect: false
           },
           hover: {
             mode: 'nearest',
-            intersect: true
+            intersect: false
           },
           legend:{
             display:true,
@@ -106,11 +97,47 @@ const Chart = ({gyroXData, gyroYData, gyroZData }) => {
           },
           scales: {
             xAxes: [{
-              type: 'time',
-              time: {
-                displayFormats: {
-                  millisecond: 'mm:ss:SSS'
-                }
+              type: 'realtime',
+              realtime: {
+                duration: 20000,
+                ttl: 60000,
+                refresh: 1000,
+                delay: 2000,
+                pause: false,
+                onRefresh: function(chart) {
+                  console.log('refresh');
+                  /*
+                  chart.data.datasets.forEach(function(dataset) {
+                    //console.log(dataset);
+                    dataset.data.push({
+                      x: Date.now(),
+                      y: (Math.random() * 10000)
+                    });
+                  });
+                  */
+                  
+                  chart.data.datasets[0].data.push({
+                    x: Date.now(),
+                    y: parseInt(gyroXData)
+                  });
+                  console.log(gyroXData);
+                  chart.data.datasets[1].data.push({
+                    x: Date.now(),
+                    y: parseInt(gyroYData)
+                  });
+                  console.log(gyroYData);
+                  chart.data.datasets[2].data.push({
+                    x: Date.now(),
+                    y: parseInt(gyroZData)
+                  });
+                  console.log(gyroZData);
+                  console.log(chart.data.datasets[0].data);
+                  
+                },
+              },
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 10
               },
               display: true,
               scaleLabel: {
@@ -129,6 +156,11 @@ const Chart = ({gyroXData, gyroYData, gyroZData }) => {
                 labelString: 'Coordinate'
               }
             }]
+          },
+          plugins: {
+            streaming: {
+              frameRate: 30
+            }
           }
         }}
       />
