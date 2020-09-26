@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Scatter} from 'react-chartjs-2';
 import "./Chart.css"
 import "chartjs-plugin-streaming";
@@ -26,7 +26,7 @@ socket.on('data', dataPoint => {
   gyroYData = dataPoint.gyroY;
   gyroZData = dataPoint.gyroZ;
 })
-const Chart = ({title}) => {
+const Chart = () => {
   return (
     <div className="chart">
       <Scatter
@@ -101,7 +101,7 @@ const Chart = ({title}) => {
           responsive: true,
           title:{
             display:true,
-            text: title,
+            text: 'Gyrometer Data',
             fontSize:20
           },
           tooltips: {
