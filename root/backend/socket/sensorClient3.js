@@ -2,7 +2,8 @@ var net = require('net');
 const readline = require('readline');
 const fs = require('fs');
 
-const filepath = "../db/csv/hair.csv"
+const filepath = '../db/csv/rocket.txt'
+
 
 // creating a custom socket client and connecting it....
 var client  = new net.Socket();
@@ -37,7 +38,7 @@ async function processLineByLine() {
 
   for await (const line of rl) {
     client.write(line);
-    await sleep(5000);
+    await sleep(200);
   }
 }
 
@@ -45,7 +46,6 @@ function sleep(ms) {
   return new Promise(resolve=>{
     setTimeout(resolve,ms)
   })
-
 }
 processLineByLine();
 

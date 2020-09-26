@@ -17,16 +17,22 @@ const chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
-let gyroXData = 0;
-let gyroYData = 0;
-let gyroZData = 0;
 
-socket.on('data', dataPoint => {
-  gyroXData = dataPoint.gyroX;
-  gyroYData = dataPoint.gyroY;
-  gyroZData = dataPoint.gyroZ;
-})
-const Chart = ({title}) => {
+
+
+const Chart = ({metric, dancer}) => {
+  let sensorXData = 0;
+  let sensorYData = 0;
+  let sensorZData = 0;
+
+  socket.on(metric + "Data" + dancer, dataPoint => {
+    console.log("received " + metric + "Data" + dancer);
+    console.log(dataPoint);
+    sensorXData = parseInt(dataPoint.x);
+    sensorYData = parseInt(dataPoint.y);
+    sensorZData = parseInt(dataPoint.z);
+  });
+
   return (
     <div className="chart">
       <Scatter
@@ -34,11 +40,11 @@ const Chart = ({title}) => {
           type: ['Scatter'],
           datasets: [
             {
-              label: 'GyroX',
+              label: metric === 'Gyrometer' ? 'GyroX' : 'AccelX',
               fill: false,
               lineTension: 0.1,
-              backgroundColor: chartColors.red,
-              borderColor: chartColors.red,
+              backgroundColor: metric === 'Gyrometer' ? chartColors.red : chartColors.green,
+              borderColor: metric === 'Gyrometer' ? chartColors.red : chartColors.green,
               borderDash: [],
               borderDashOffset: 0.0,
               borderJoinStyle: 'miter',
@@ -54,11 +60,11 @@ const Chart = ({title}) => {
               data: []
             },
             {
-              label: 'GyroY',
+              label: metric === 'Gyrometer' ? 'GyroY' : 'AccelY',
               fill: false,
               lineTension: 0.1,
-              backgroundColor: chartColors.orange,
-              borderColor: chartColors.orange,
+              backgroundColor: metric === 'Gyrometer' ? chartColors.orange : chartColors.purple,
+              borderColor: metric === 'Gyrometer' ? chartColors.orange : chartColors.purple,
               borderCapStyle: 'butt',
               borderDash: [],
               borderDashOffset: 0.0,
@@ -75,11 +81,11 @@ const Chart = ({title}) => {
               data: []
             },
             {
-              label: 'GyroZ',
+              label: metric === 'Gyrometer' ? 'GyroZ' : 'AccelZ',
               fill: false,
               lineTension: 0.1,
-              backgroundColor: chartColors.blue,
-              borderColor: chartColors.blue,
+              backgroundColor: metric === 'Gyrometer' ? chartColors.blue : chartColors.yellow,
+              borderColor: metric === 'Gyrometer' ? chartColors.blue : chartColors.yellow,
               borderCapStyle: 'butt',
               borderDash: [],
               borderDashOffset: 0.0,
@@ -101,7 +107,7 @@ const Chart = ({title}) => {
           responsive: true,
           title:{
             display:true,
-            text: title,
+            text: metric + " Data",
             fontSize:20
           },
           tooltips: {
@@ -128,17 +134,16 @@ const Chart = ({title}) => {
                 onRefresh: function(chart) {
                   chart.data.datasets[0].data.push({
                     x: Date.now(),
-                    y: parseInt(gyroXData)
+                    y: sensorXData
                   });
                   chart.data.datasets[1].data.push({
                     x: Date.now(),
-                    y: parseInt(gyroYData)
+                    y: sensorYData
                   });
                   chart.data.datasets[2].data.push({
                     x: Date.now(),
-                    y: parseInt(gyroZData)
+                    y: sensorZData
                   });
-                  
                 },
               },
               ticks: {

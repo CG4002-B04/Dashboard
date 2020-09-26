@@ -60,18 +60,28 @@ server.on('connection',function(socket){
     console.log('Bytes written : ' + bwrite);
     console.log('Data sent to server : ' + data);
 
-    if (data[0] == '#') {
-      socketClient.emit('endpointEvalData', data, (error) => {
-        if (error)
-          console.log(error);
-      });
-    } else {
-      socketClient.emit('endpointData', data, (error) => {
-        if (error) {
-          console.log(error);
-        }
-      });
-    }
+    socketClient.emit('endpointData', data, (error) => {
+      if (error) {
+        console.log(error);
+      }
+    });
+
+    // if (data[0] == '#') {
+    //   socketClient.emit('endpointEvalData', data, (error) => {
+    //     if (error)
+    //       console.log(error);
+    //   });
+    // } else if (data[3] == '0') {
+    //   socketClient.emit('endpointData', data, (error) => {
+    //     if (error) {
+    //       console.log(error);
+    //     }
+    //   });
+    // } else if (data[3] == '1') {
+
+    // } else if (data[3] == '2') {
+
+    // }
     
     //echo data
     var is_kernel_buffer_full = socket.write(data);

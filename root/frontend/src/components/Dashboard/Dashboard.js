@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -161,8 +161,8 @@ function Dashboard() {
                   Dancer 1
                 </Typography>
                 <div className={classes.accelGyro}>
-                  <Chart title="Gyrometer Data" dancer='1'/>
-                  <Chart title="Accelerometer Data" dancer='1'/>
+                  <Chart metric="Gyrometer" dancer='1'/>
+                  <Chart metric="Accelerometer" dancer='1'/>
                 </div>
               </Paper>
             </Grid>
@@ -172,8 +172,8 @@ function Dashboard() {
                   Dancer 2
                 </Typography>
                 <div className={classes.accelGyro}>
-                  <Chart title="Gyrometer Data" dancer='2'/>
-                  <Chart title="Accelerometer Data" dancer='2'/>
+                  <Chart metric="Gyrometer" dancer='2'/>
+                  <Chart metric="Accelerometer" dancer='2'/>
                 </div>
               </Paper>
             </Grid>
@@ -183,8 +183,8 @@ function Dashboard() {
                   Dancer 3
                 </Typography>
                 <div className={classes.accelGyro}>
-                  <Chart title="Gyrometer Data" dancer='3'/>
-                  <Chart title="Accelerometer Data" dancer='3'/>
+                  <Chart metric="Gyrometer" dancer='3'/>
+                  <Chart metric="Accelerometer" dancer='3'/>
                 </div>
               </Paper>
             </Grid>

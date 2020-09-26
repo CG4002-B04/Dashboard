@@ -8,16 +8,19 @@ const io = socketio(server);
 
 app.use(cors());
 
-function processData(sensorData) {
-  let splitData = sensorData.split(',');
-  return {
-          accelX: splitData[0],
-          accelY: splitData[1],
-          accelZ: splitData[2],
-          gyroX: splitData[3], 
-          gyroY: splitData[4], 
-          gyroZ: splitData[5]
-        }
+function processSensorData(sensorData) {
+  let splitData = sensorData.split('|');
+  return [{
+            x: splitData[2],
+            y: splitData[3],
+            z: splitData[4]
+          },
+          {
+            x: splitData[5], 
+            y: splitData[6], 
+            z: splitData[7]
+          }
+         ] 
 }
 
 function processEvalData(evalData) {
@@ -30,22 +33,40 @@ function processEvalData(evalData) {
         }
 }
 
+let processedAccelData1;
+let processedGyroData1;
+let processedAccelData2;
+let processedGyroData2;
+let processedAccelData3;
+let processedGyroData3;
+let processedEvalData;
+
 io.on('connect', (socket) => {
   console.log(`Socket ${socket.id} has just been connected`);
   
   socket.on('endpointData', (data) => {
-    console.log('received data');
     console.log(data);
-    let processedData = processData(data);
-    io.emit('data', processedData);
+    if (data[0] == '#') {
+      processedEvalData = processEvalData(data);
+      io.emit('evalData', processedEvalData);
+      console.log('evalData');
+    } else if (data[3] == '0') {
+      [processedAccelData1, processedGyroData1] = processSensorData(data);
+      io.sockets.emit('AccelerometerData1', processedAccelData1);
+      io.sockets.emit('GyrometerData1', processedGyroData1);
+      console.log('data1');
+    } else if (data[3] == '1') {
+      [processedAccelData2, processedGyroData2] = processSensorData(data);
+      io.sockets.emit('AccelerometerData2', processedAccelData2);
+      io.sockets.emit('GyrometerData2', processedGyroData2);
+      console.log('data2');
+    } else if (data[3] == '2') {
+      [processedAccelData3, processedGyroData3] = processSensorData(data);
+      io.sockets.emit('AccelerometerData3', processedAccelData3);
+      io.sockets.emit('GyrometerData3', processedGyroData3);
+      console.log('data3');
+    }
   });
-
-  socket.on('endpointEvalData', (data) => {
-    console.log('received evalData');
-    let processedData = processEvalData(data);
-    console.log(processedData);
-    io.emit('evalData', processedData);
-  })
 
   socket.on('error', (err) => {
     console.log(err);
