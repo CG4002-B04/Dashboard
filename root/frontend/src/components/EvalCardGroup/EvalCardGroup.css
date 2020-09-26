@@ -1,0 +1,8 @@
+.EvalCardGroup {
+  display: flex;
+  position: relative;
+  height: 400px;
+  width: 600px;
+  min-width: 250px;
+  padding: 1.5rem;
+}

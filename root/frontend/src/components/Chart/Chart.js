@@ -7,12 +7,21 @@ import io from "socket.io-client";
 const ENDPOINT = 'http://localhost:5000';
 let socket = io(ENDPOINT);
 
+const chartColors = {
+  red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)'
+};
+
 let gyroXData = 0;
 let gyroYData = 0;
 let gyroZData = 0;
 
 socket.on('data', dataPoint => {
-  console.log('incoming data');
   gyroXData = dataPoint.gyroX;
   gyroYData = dataPoint.gyroY;
   gyroZData = dataPoint.gyroZ;
@@ -28,13 +37,11 @@ const Chart = () => {
               label: 'GyroX',
               fill: false,
               lineTension: 0.1,
-              backgroundColor: 'rgba(75,192,192,0.4)',
-              borderColor: 'rgba(255,51,51,1)',
-              borderCapStyle: 'butt',
+              backgroundColor: chartColors.red,
+              borderColor: chartColors.red,
               borderDash: [],
               borderDashOffset: 0.0,
               borderJoinStyle: 'miter',
-              pointBorderColor: 'rgba(75,192,192,1)',
               pointBackgroundColor: '#fff',
               pointBorderWidth: 1,
               pointHoverRadius: 5,
@@ -50,13 +57,12 @@ const Chart = () => {
               label: 'GyroY',
               fill: false,
               lineTension: 0.1,
-              backgroundColor: 'rgba(75,192,192,0.4)',
-              borderColor: 'rgba(0,204,102,1)',
+              backgroundColor: chartColors.orange,
+              borderColor: chartColors.orange,
               borderCapStyle: 'butt',
               borderDash: [],
               borderDashOffset: 0.0,
               borderJoinStyle: 'miter',
-              pointBorderColor: 'rgba(75,192,192,1)',
               pointBackgroundColor: '#fff',
               pointBorderWidth: 1,
               pointHoverRadius: 5,
@@ -72,13 +78,12 @@ const Chart = () => {
               label: 'GyroZ',
               fill: false,
               lineTension: 0.1,
-              backgroundColor: 'rgba(75,192,192,0.4)',
-              borderColor: 'rgba(0,102,204,1)',
+              backgroundColor: chartColors.blue,
+              borderColor: chartColors.blue,
               borderCapStyle: 'butt',
               borderDash: [],
               borderDashOffset: 0.0,
               borderJoinStyle: 'miter',
-              pointBorderColor: 'rgba(75,192,192,1)',
               pointBackgroundColor: '#fff',
               pointBorderWidth: 1,
               pointHoverRadius: 5,

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const sensorDataSchema = new mongoose.Schema({
+const sensorReadingSchema = new mongoose.Schema({
   accelX: {
     type: Number,
     required: true,
@@ -35,4 +35,4 @@ const sensorDataSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('sensorData', sensorDataSchema)
+module.exports = mongoose.model('sensorreading', sensorReadingSchema)

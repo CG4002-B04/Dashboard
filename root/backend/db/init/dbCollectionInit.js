@@ -4,9 +4,9 @@ const url = "mongodb://localhost:27017/";
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("CG4002_Dashboard");
-  dbo.createCollection("sensorData", function(err, res) {
+  dbo.createCollection("sensorreadings", function(err, res) {
     if (err) throw err;
-    console.log(`Collection "sensorData" created!`);
+    console.log(`Collection "sensorreadings" created!`);
   });
 
   dbo.createCollection("predictions", function(err, res) {

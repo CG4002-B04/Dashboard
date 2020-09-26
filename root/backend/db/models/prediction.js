@@ -15,3 +15,5 @@ const predictionSchema = new mongoose.Schema({
     required: true
   }
 })
+
+module.exports = mongoose.model('prediction', predictionSchema)

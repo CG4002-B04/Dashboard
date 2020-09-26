@@ -19,6 +19,17 @@ function processData(sensorData) {
           gyroZ: splitData[5]
         }
 }
+
+function processEvalData(evalData) {
+  let splitData = evalData.split('|');
+  splitData[0] = splitData[0].substring(1);
+  return {
+          positions: splitData[0],
+          danceMoves: splitData[1],
+          synchDelay: splitData[2]
+        }
+}
+
 io.on('connect', (socket) => {
   console.log(`Socket ${socket.id} has just been connected`);
   
@@ -28,6 +39,13 @@ io.on('connect', (socket) => {
     let processedData = processData(data);
     io.emit('data', processedData);
   });
+
+  socket.on('endpointEvalData', (data) => {
+    console.log('received evalData');
+    let processedData = processEvalData(data);
+    console.log(processedData);
+    io.emit('evalData', processedData);
+  })
 
   socket.on('error', (err) => {
     console.log(err);
