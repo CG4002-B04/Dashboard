@@ -17,6 +17,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems }from './listItems';
 import Chart from '../Chart/Chart';
+import EvalCardGroup from '../EvalCardGroup/EvalCardGroup'
 
 const drawerWidth = 240;
 
@@ -100,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row'
   },
   fixedHeight: {
-    height: 360,
+    height: 455,
   },
 }));
 
@@ -155,6 +156,14 @@ function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Paper className={fixedHeightPaper}>
+                <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                  Dance - Realtime
+                </Typography>
+                <EvalCardGroup />
+              </Paper>
+            </Grid>
             <Grid item xs={12}>
               <Paper className={fixedHeightPaper}>
                 <Typography component="h2" variant="h6" color="primary" gutterBottom>

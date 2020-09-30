@@ -6,8 +6,17 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+const mongoose = require('mongoose');
+const sensorReading = require('./db/models/sensorReading');
+const prediction = require('./db/models/prediction.js')
+mongoose.connect('mongodb://localhost:27017/CG4002_Dashboard', {userMongoclient: true});
+mongoose.Promise = global.Promise;
+const SensorReading = sensorReading;
+const Prediction = prediction;
+
 app.use(cors());
 
+//split to acceleration data and gyro data
 function processSensorData(sensorData) {
   let splitData = sensorData.split('|');
   return [{
@@ -29,8 +38,46 @@ function processEvalData(evalData) {
   return {
           positions: splitData[0],
           danceMoves: splitData[1],
-          synchDelay: splitData[2]
+          syncDelay: splitData[2]
         }
+}
+
+function saveSensorData(accelData, gyroData, hand, user) {
+  const reading = new SensorReading({
+    accelX: parseInt(accelData.x),
+    accelY: parseInt(accelData.y),
+    accelZ: parseInt(accelData.z),
+    gyroX: parseInt(gyroData.x),
+    gyroY: parseInt(gyroData.y),
+    gyroZ: parseInt(gyroData.z),
+    hand: hand,
+    user: user
+  });
+  reading.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved: ', results);
+    }
+  })
+}
+
+function saveEvalData(evalData) {
+  let splitActions = evalData.danceMoves.split(" ");
+  const eval = new Prediction({
+    positions: evalData.positions,
+    action: splitActions[0],
+    syncdelay: evalData.syncDelay
+  });
+  eval.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved: ', results);
+    }
+  })
 }
 
 let processedAccelData1;
@@ -46,25 +93,26 @@ io.on('connect', (socket) => {
   
   socket.on('endpointData', (data) => {
     console.log(data);
-    if (data[0] == '#') {
+    if (data[0] == '#') { //evaluation data
       processedEvalData = processEvalData(data);
       io.emit('evalData', processedEvalData);
+      saveEvalData(processedEvalData);
       console.log('evalData');
-    } else if (data[3] == '0') {
+    } else if (data[3] == '0') { //data from sensor 1
       [processedAccelData1, processedGyroData1] = processSensorData(data);
       io.sockets.emit('AccelerometerData1', processedAccelData1);
       io.sockets.emit('GyrometerData1', processedGyroData1);
-      console.log('data1');
-    } else if (data[3] == '1') {
+      saveSensorData(processedAccelData1, processedGyroData1, 'right', 'Alyssa');
+    } else if (data[3] == '1') { //data from sensor 2
       [processedAccelData2, processedGyroData2] = processSensorData(data);
       io.sockets.emit('AccelerometerData2', processedAccelData2);
       io.sockets.emit('GyrometerData2', processedGyroData2);
-      console.log('data2');
-    } else if (data[3] == '2') {
+      saveSensorData(processedAccelData2, processedGyroData2, 'left', 'Chris');
+    } else if (data[3] == '2') { //data from sensor 3
       [processedAccelData3, processedGyroData3] = processSensorData(data);
       io.sockets.emit('AccelerometerData3', processedAccelData3);
       io.sockets.emit('GyrometerData3', processedGyroData3);
-      console.log('data3');
+      saveSensorData(processedAccelData3, processedGyroData3, 'right', 'James');
     }
   });
 

@@ -1,8 +1,10 @@
 .EvalCardGroup {
   display: flex;
-  position: relative;
-  height: 400px;
-  width: 600px;
+  height: 300px;
+  margin: 0 auto;
+  width: 800px;
   min-width: 250px;
-  padding: 1.5rem;
+  padding: 0.25rem;
+  align-items: center;
+  justify-content: center;
 }

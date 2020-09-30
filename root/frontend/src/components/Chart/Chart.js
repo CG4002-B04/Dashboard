@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Scatter} from 'react-chartjs-2';
 import "./Chart.css"
 import "chartjs-plugin-streaming";
-
+import 'fontsource-roboto';
+import SensorData from "../SensorData/SensorData"
 import io from "socket.io-client";
 const ENDPOINT = 'http://localhost:5000';
 let socket = io(ENDPOINT);
@@ -18,16 +19,13 @@ const chartColors = {
 };
 
 
-
-
 const Chart = ({metric, dancer}) => {
   let sensorXData = 0;
   let sensorYData = 0;
   let sensorZData = 0;
-
   socket.on(metric + "Data" + dancer, dataPoint => {
-    console.log("received " + metric + "Data" + dancer);
-    console.log(dataPoint);
+    //console.log("received " + metric + "Data" + dancer);
+    //console.log(dataPoint);
     sensorXData = parseInt(dataPoint.x);
     sensorYData = parseInt(dataPoint.y);
     sensorZData = parseInt(dataPoint.z);
@@ -146,10 +144,7 @@ const Chart = ({metric, dancer}) => {
                   });
                 },
               },
-              ticks: {
-                autoSkip: true,
-                maxTicksLimit: 10
-              },
+            
               display: true,
               scaleLabel: {
                 display: true,
@@ -175,6 +170,7 @@ const Chart = ({metric, dancer}) => {
           }
         }}
       />
+      <SensorData metric={metric} dancer={dancer}/>
     </div>
   );
 }

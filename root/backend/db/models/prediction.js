@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const predictionSchema = new mongoose.Schema({
-  position: {
+  positions: {
     type: String,
     required: true,
   },
@@ -13,6 +13,10 @@ const predictionSchema = new mongoose.Schema({
   syncdelay: {
     type: String,
     required: true
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now //Current timestamp
   }
 })
 
