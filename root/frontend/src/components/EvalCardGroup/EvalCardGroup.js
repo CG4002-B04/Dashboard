@@ -15,8 +15,8 @@ function EvalCardGroup() {
   const [danceMoves, setDanceMoves] = useState(["Neutral", "Neutral", "Neutral"]);
   useEffect(() => {
     socket.on('evalData', dataPoint => {
-      console.log(dataPoint.danceMoves.split(" "));
-      console.log(dataPoint.positions.split(" "));
+      // console.log(dataPoint.danceMoves.split(" "));
+      // console.log(dataPoint.positions.split(" "));
       setPositions(dataPoint.positions.split(" "));
       setDanceMoves(dataPoint.danceMoves.split(" "));
     })

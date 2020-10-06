@@ -1,23 +1,25 @@
 const mongoose = require('mongoose')
 
-const predictionSchema = new mongoose.Schema({
-  positions: {
+const dancerSchema = new mongoose.Schema({
+  name: {
     type: String,
     required: true,
   },
-  action: {
+  macaddress: {
     type: String,
     required: true,
+  },
+  accuracy: {
+    type: Number
+  },
+  bestmove: {
+    type: String,
     enum: ['windows', 'pushback', 'rocket', 'elbow_lock', 'hair', 'scarecrow', 'zigzag', 'shouldershrug', 'logout']
   },
-  syncdelay: {
+  worstmove: {
     type: String,
-    required: true
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now //Current timestamp
+    enum: ['windows', 'pushback', 'rocket', 'elbow_lock', 'hair', 'scarecrow', 'zigzag', 'shouldershrug', 'logout']
   }
 })
 
-module.exports = mongoose.model('prediction', predictionSchema)
+module.exports = mongoose.model('dancer', dancerSchema)

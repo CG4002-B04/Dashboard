@@ -17,6 +17,10 @@ const sensorReadingSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  gyroY: {
+    type: Number,
+    required: true
+  },
   gyroZ: {
     type: Number,
     required: true
