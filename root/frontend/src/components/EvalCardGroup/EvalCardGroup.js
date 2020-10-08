@@ -7,9 +7,9 @@ let socket = io(ENDPOINT);
 
 function EvalCardGroup() {
   const [positionsToDancers, setPositiontoDancers] = useState({
-                                                      '1' : 'Alyssa',
-                                                      '2' : 'Chris',
-                                                      '3' : 'James'
+                                                      '1' : 'undefined',
+                                                      '2' : 'undefined',
+                                                      '3' : 'undefined'
                                                     });
   const [positions, setPositions] = useState(['1', '2', '3']);
   const [danceMoves, setDanceMoves] = useState(["Neutral", "Neutral", "Neutral"]);

@@ -28,6 +28,16 @@ function processSensorData(sensorData) {
             x: splitData[5], 
             y: splitData[6], 
             z: splitData[7]
+          },
+          {
+            x: splitData[8],
+            y: splitData[9],
+            z: splitData[10]
+          },
+          {
+            x: splitData[11],
+            y: splitData[12],
+            z: splitData[13]
           }
          ] 
 }
