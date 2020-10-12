@@ -118,20 +118,26 @@ io.on('connect', (socket) => {
       io.emit('evalData', processedEvalData);
       saveEvalData(processedEvalData);
       console.log('evalData');
-    } else if (data.includes("!D|0|")) { //data from sensor 1
-      [processedAccelData1, processedGyroData1] = parseSensorData(data);
-      io.sockets.emit('AccelerometerData1', processedAccelData1);
-      io.sockets.emit('GyrometerData1', processedGyroData1);
+    } else if (data.includes("!D|0|")) { //data from dancer 1
+      [processedAccelData1Left, processedGyroData1Left, processedAccelData1Right, processedGyroData1Right] = parseSensorData(data);
+      io.sockets.emit('AccelerometerData1Left', processedAccelData1Left);
+      io.sockets.emit('GyrometerData1Left', processedGyroData1Left);
+      io.sockets.emit('AccelerometerData1Right', processedAccelData1Right);
+      io.sockets.emit('GyrometerData1Right', processedGyroData1Right);
       saveSensorData(processedAccelData1, processedGyroData1, 'right', 'Alyssa');
-    } else if (data.includes("!D|1|")) { //data from sensor 2
-      [processedAccelData2, processedGyroData2] = parseSensorData(data);
-      io.sockets.emit('AccelerometerData2', processedAccelData2);
-      io.sockets.emit('GyrometerData2', processedGyroData2);
+    } else if (data.includes("!D|1|")) { //data from dancer 2
+      [processedAccelData2Left, processedGyroData2Left, processedAccelData2Right, processedGyroData2Right ] = parseSensorData(data);
+      io.sockets.emit('AccelerometerData2Left', processedAccelData2Left);
+      io.sockets.emit('GyrometerData2Left', processedGyroData2Left);
+      io.sockets.emit('AccelerometerData2Right', processedAccelData2Right);
+      io.sockets.emit('GyrometerData2Right', processedGyroData2Right);
       saveSensorData(processedAccelData2, processedGyroData2, 'left', 'Chris');
-    } else if (data.includes("!D|2|")) { //data from sensor 3
-      [processedAccelData3, processedGyroData3] = parseSensorData(data);
-      io.sockets.emit('AccelerometerData3', processedAccelData3);
-      io.sockets.emit('GyrometerData3', processedGyroData3);
+    } else if (data.includes("!D|2|")) { //data from dancer 3
+      [processedAccelData3Left, processedGyroData3Left, processedAccelData3Right, processedGyroData3Right] = parseSensorData(data);
+      io.sockets.emit('AccelerometerData3Left', processedAccelData3Left);
+      io.sockets.emit('GyrometerData3Left', processedGyroData3Left);
+      io.sockets.emit('AccelerometerData3Right', processedAccelData3Right);
+      io.sockets.emit('GyrometerData3Right', processedGyroData3Right);
       saveSensorData(processedAccelData3, processedGyroData3, 'right', 'James');
     } else if (data.includes("!S")) { //dancer data
       processedDancerData = parseDancerData(data);

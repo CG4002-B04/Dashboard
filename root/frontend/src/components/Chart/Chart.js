@@ -19,11 +19,11 @@ const chartColors = {
 };
 
 
-const Chart = ({metric, dancer}) => {
+const Chart = ({metric, dancer, hand}) => {
   let sensorXData = 0;
   let sensorYData = 0;
   let sensorZData = 0;
-  socket.on(metric + "Data" + dancer, dataPoint => {
+  socket.on(metric + "Data" + dancer + hand, dataPoint => {
     //console.log("received " + metric + "Data" + dancer);
     //console.log(dataPoint);
     sensorXData = parseInt(dataPoint.x);
@@ -170,7 +170,6 @@ const Chart = ({metric, dancer}) => {
           }
         }}
       />
-      <SensorData metric={metric} dancer={dancer}/>
     </div>
   );
 }

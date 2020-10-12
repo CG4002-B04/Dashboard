@@ -170,8 +170,10 @@ function Dashboard() {
                   Dancer 1
                 </Typography>
                 <div className={classes.accelGyro}>
-                  <Chart metric="Gyrometer" dancer='1'/>
-                  <Chart metric="Accelerometer" dancer='1'/>
+                  <Chart metric="Gyrometer" dancer='1' hand='left'/>
+                  <Chart metric="Gyrometer" dancer='1' hand='right'/>
+                  <Chart metric="Accelerometer" dancer='1' hand='left'/>
+                  <Chart metric="Accelerometer" dancer='1' hand='right'/>
                 </div>
               </Paper>
             </Grid>
@@ -181,8 +183,11 @@ function Dashboard() {
                   Dancer 2
                 </Typography>
                 <div className={classes.accelGyro}>
-                  <Chart metric="Gyrometer" dancer='2'/>
-                  <Chart metric="Accelerometer" dancer='2'/>
+                  <Chart metric="Gyrometer" dancer='2' hand='left'/>
+                  <Chart metric="Gyrometer" dancer='2' hand='right'/>
+                  <Chart metric="Accelerometer" dancer='2' hand='left'/>
+                  <Chart metric="Accelerometer" dancer='2' hand='right'/>
+ 
                 </div>
               </Paper>
             </Grid>
@@ -192,8 +197,10 @@ function Dashboard() {
                   Dancer 3
                 </Typography>
                 <div className={classes.accelGyro}>
-                  <Chart metric="Gyrometer" dancer='3'/>
-                  <Chart metric="Accelerometer" dancer='3'/>
+                  <Chart metric="Gyrometer" dancer='3' hand='left'/>
+                  <Chart metric="Gyrometer" dancer='3' hand='right'/>
+                  <Chart metric="Accelerometer" dancer='3' hand='left'/>
+                  <Chart metric="Accelerometer" dancer='3' hand='right'/>
                 </div>
               </Paper>
             </Grid>

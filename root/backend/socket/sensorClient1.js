@@ -2,7 +2,7 @@ var net = require('net');
 const readline = require('readline');
 const fs = require('fs');
 
-const filepath = '../db/csv/hair.txt'
+const filepath = '../db/csv/raw_data.txt'
 
 
 // creating a custom socket client and connecting it....
