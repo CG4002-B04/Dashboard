@@ -17,7 +17,7 @@ const Prediction = prediction;
 app.use(cors());
 
 //split to acceleration data and gyro data
-function processSensorData(sensorData) {
+function parseSensorData(sensorData) {
   let splitData = sensorData.split('|');
   return [{
             x: splitData[2],
@@ -42,13 +42,21 @@ function processSensorData(sensorData) {
          ] 
 }
 
-function processEvalData(evalData) {
+function parseEvalData(evalData) {
   let splitData = evalData.split('|');
   splitData[0] = splitData[0].substring(1);
   return {
           positions: splitData[0],
           danceMoves: splitData[1],
           syncDelay: splitData[2]
+        }
+}
+
+function parseDancerData(dancerData) {
+  let splitDancerData = dancerData.split('|');
+  return {
+          id: splitDancerData[1],
+          name: splitDancerData[2]
         }
 }
 
@@ -90,6 +98,8 @@ function saveEvalData(evalData) {
   })
 }
 
+
+
 let processedAccelData1;
 let processedGyroData1;
 let processedAccelData2;
@@ -103,26 +113,30 @@ io.on('connect', (socket) => {
   
   socket.on('endpointData', (data) => {
     console.log(data);
-    if (data[0] == '#') { //evaluation data
-      processedEvalData = processEvalData(data);
+    if (data.includes("#")) { //evaluation data
+      processedEvalData = parseEvalData(data);
       io.emit('evalData', processedEvalData);
       saveEvalData(processedEvalData);
       console.log('evalData');
-    } else if (data[3] == '0') { //data from sensor 1
-      [processedAccelData1, processedGyroData1] = processSensorData(data);
+    } else if (data.includes("!D|0|")) { //data from sensor 1
+      [processedAccelData1, processedGyroData1] = parseSensorData(data);
       io.sockets.emit('AccelerometerData1', processedAccelData1);
       io.sockets.emit('GyrometerData1', processedGyroData1);
       saveSensorData(processedAccelData1, processedGyroData1, 'right', 'Alyssa');
-    } else if (data[3] == '1') { //data from sensor 2
-      [processedAccelData2, processedGyroData2] = processSensorData(data);
+    } else if (data.includes("!D|1|")) { //data from sensor 2
+      [processedAccelData2, processedGyroData2] = parseSensorData(data);
       io.sockets.emit('AccelerometerData2', processedAccelData2);
       io.sockets.emit('GyrometerData2', processedGyroData2);
       saveSensorData(processedAccelData2, processedGyroData2, 'left', 'Chris');
-    } else if (data[3] == '2') { //data from sensor 3
-      [processedAccelData3, processedGyroData3] = processSensorData(data);
+    } else if (data.includes("!D|2|")) { //data from sensor 3
+      [processedAccelData3, processedGyroData3] = parseSensorData(data);
       io.sockets.emit('AccelerometerData3', processedAccelData3);
       io.sockets.emit('GyrometerData3', processedGyroData3);
       saveSensorData(processedAccelData3, processedGyroData3, 'right', 'James');
+    } else if (data.includes("!S")) { //dancer data
+      processedDancerData = parseDancerData(data);
+      console.log(processedDancerData);
+      io.sockets.emit('DancerData', processedDancerData);
     }
   });
 

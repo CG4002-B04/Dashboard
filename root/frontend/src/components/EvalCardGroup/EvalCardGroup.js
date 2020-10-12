@@ -6,27 +6,34 @@ const ENDPOINT = 'http://localhost:5000';
 let socket = io(ENDPOINT);
 
 function EvalCardGroup() {
-  const [positionsToDancers, setPositiontoDancers] = useState({
-                                                      '1' : 'undefined',
-                                                      '2' : 'undefined',
-                                                      '3' : 'undefined'
-                                                    });
+  // const [positionsToDancers, setPositiontoDancers] = useState({
+  //                                                     '1' : 'Chris',
+  //                                                     '2' : 'undefined',
+  //                                                     '3' : 'undefined'
+  //                                                   });
+  const [positionsToDancers, setPositiontoDancers] = useState(['undefined', 'undefined', 'undefined']);
   const [positions, setPositions] = useState(['1', '2', '3']);
   const [danceMoves, setDanceMoves] = useState(["Neutral", "Neutral", "Neutral"]);
   useEffect(() => {
+    socket.on('DancerData', dancerData => {
+      //TODD: figure out why it only renders after the next setState
+      setPositiontoDancers([...positionsToDancers, positionsToDancers[dancerData.id -1] = dancerData.name]);
+    });
     socket.on('evalData', dataPoint => {
       // console.log(dataPoint.danceMoves.split(" "));
       // console.log(dataPoint.positions.split(" "));
+      console.log('evalData')
       setPositions(dataPoint.positions.split(" "));
       setDanceMoves(dataPoint.danceMoves.split(" "));
-    })
+    });
+    
   }, [])
   
   return (
     <div className="EvalCardGroup">
-      <EvalCard dancerName={positionsToDancers[positions[0]]} position={positions[0]} danceMove={danceMoves[0]}/>
-      <EvalCard dancerName={positionsToDancers[positions[1]]} position={positions[1]} danceMove={danceMoves[1]}/>
-      <EvalCard dancerName={positionsToDancers[positions[2]]} position={positions[2]} danceMove={danceMoves[2]}/>
+      <EvalCard dancerName={positionsToDancers[positions[0] - 1]} position={positions[0]} danceMove={danceMoves[0]}/>
+      <EvalCard dancerName={positionsToDancers[positions[1] - 1]} position={positions[1]} danceMove={danceMoves[1]}/>
+      <EvalCard dancerName={positionsToDancers[positions[2] - 1]} position={positions[2]} danceMove={danceMoves[2]}/>
     </div>
   )
 }

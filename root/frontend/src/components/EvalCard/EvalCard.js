@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 
 export default function EvalCard({dancerName, position, danceMove}) {
   const classes = useStyles();
+  console.log(dancerName);
   return (
     <Card className={classes.root} variant="outlined">
       <CardActionArea>
