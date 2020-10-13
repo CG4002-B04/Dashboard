@@ -6,18 +6,13 @@ const ENDPOINT = 'http://localhost:5000';
 let socket = io(ENDPOINT);
 
 function EvalCardGroup() {
-  // const [positionsToDancers, setPositiontoDancers] = useState({
-  //                                                     '1' : 'Chris',
-  //                                                     '2' : 'undefined',
-  //                                                     '3' : 'undefined'
-  //                                                   });
-  const [positionsToDancers, setPositiontoDancers] = useState(['undefined', 'undefined', 'undefined']);
+  const [positionsToDancers, setPositiontoDancers] = useState(['unknown', 'unknown', 'unknown']);
   const [positions, setPositions] = useState(['1', '2', '3']);
   const [danceMoves, setDanceMoves] = useState(["Neutral", "Neutral", "Neutral"]);
   useEffect(() => {
     socket.on('DancerData', dancerData => {
-      //TODD: figure out why it only renders after the next setState
-      setPositiontoDancers([...positionsToDancers, positionsToDancers[dancerData.id -1] = dancerData.name]);
+      //TODO: figure out why it only renders after the next setState
+      setPositiontoDancers([...positionsToDancers, positionsToDancers[dancerData.id] = dancerData.name]);
     });
     socket.on('evalData', dataPoint => {
       // console.log(dataPoint.danceMoves.split(" "));

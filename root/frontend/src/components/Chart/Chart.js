@@ -24,8 +24,8 @@ const Chart = ({metric, dancer, hand}) => {
   let sensorYData = 0;
   let sensorZData = 0;
   socket.on(metric + "Data" + dancer + hand, dataPoint => {
-    //console.log("received " + metric + "Data" + dancer);
-    //console.log(dataPoint);
+    // console.log("received " + metric + "Data" + dancer + hand);
+    // console.log(dataPoint);
     sensorXData = parseInt(dataPoint.x);
     sensorYData = parseInt(dataPoint.y);
     sensorZData = parseInt(dataPoint.z);
@@ -124,9 +124,9 @@ const Chart = ({metric, dancer, hand}) => {
             xAxes: [{
               type: 'realtime',
               realtime: {
-                duration: 20000,
-                ttl: 60000,
-                refresh: 300,
+                duration: 10000,
+                ttl: 30000,
+                refresh: 400,
                 delay: 1000,
                 pause: false,
                 onRefresh: function(chart) {
@@ -154,8 +154,8 @@ const Chart = ({metric, dancer, hand}) => {
             yAxes: [{
               display: true,
               ticks: {
-                suggestedMin: -40000,
-                suggestedMax:  40000
+                suggestedMin: -20000,
+                suggestedMax:  20000
               },
               scaleLabel: {
                 display: true,

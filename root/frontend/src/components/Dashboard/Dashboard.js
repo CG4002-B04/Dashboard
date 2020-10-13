@@ -16,8 +16,14 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems }from './listItems';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+
 import Chart from '../Chart/Chart';
 import EvalCardGroup from '../EvalCardGroup/EvalCardGroup'
+import ChartGroup from '../ChartGroup/ChartGroup'
 
 const drawerWidth = 240;
 
@@ -101,13 +107,19 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row'
   },
   fixedHeight: {
-    height: 455,
+    height: 650,
   },
 }));
 
 function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -164,46 +176,22 @@ function Dashboard() {
                 <EvalCardGroup />
               </Paper>
             </Grid>
-            <Grid item xs={12}>
-              <Paper className={fixedHeightPaper}>
-                <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                  Dancer 1
-                </Typography>
-                <div className={classes.accelGyro}>
-                  <Chart metric="Gyrometer" dancer='1' hand='left'/>
-                  <Chart metric="Gyrometer" dancer='1' hand='right'/>
-                  <Chart metric="Accelerometer" dancer='1' hand='left'/>
-                  <Chart metric="Accelerometer" dancer='1' hand='right'/>
-                </div>
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={fixedHeightPaper}>
-                <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                  Dancer 2
-                </Typography>
-                <div className={classes.accelGyro}>
-                  <Chart metric="Gyrometer" dancer='2' hand='left'/>
-                  <Chart metric="Gyrometer" dancer='2' hand='right'/>
-                  <Chart metric="Accelerometer" dancer='2' hand='left'/>
-                  <Chart metric="Accelerometer" dancer='2' hand='right'/>
- 
-                </div>
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={fixedHeightPaper}>
-                <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                  Dancer 3
-                </Typography>
-                <div className={classes.accelGyro}>
-                  <Chart metric="Gyrometer" dancer='3' hand='left'/>
-                  <Chart metric="Gyrometer" dancer='3' hand='right'/>
-                  <Chart metric="Accelerometer" dancer='3' hand='left'/>
-                  <Chart metric="Accelerometer" dancer='3' hand='right'/>
-                </div>
-              </Paper>
-            </Grid>
+            {/* <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
+              >
+                <Typography className={classes.heading}>Dancer 1</Typography>
+                <AccordionDetails>
+                  <Typography>Hello everyone </Typography>
+                </AccordionDetails>
+              </AccordionSummary>
+            </Accordion> */}
+
+            <ChartGroup dancer="1"/>
+            <ChartGroup dancer="2"/>
+            <ChartGroup dancer="3"/>
           </Grid>
           <Box pt={4}>
           </Box>
