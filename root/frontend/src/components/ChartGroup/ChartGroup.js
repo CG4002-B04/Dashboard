@@ -16,10 +16,15 @@ const useStyles = makeStyles((theme) => ({
   accelGyro: {
     display: 'flex',
     overflow: 'auto',
-    flexDirection: 'row'
+    flexDirection: 'column'
+  },
+  sensor: {
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection:'row'
   },
   fixedHeight: {
-    height: 650,
+    height: 750,
   },
 }));
 
@@ -28,17 +33,30 @@ function ChartGroup({dancer}) {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return(
     <Grid item xs={12}>
+        
       <Paper className={fixedHeightPaper}>
-        <Typography component="h2" variant="h6" color="primary" gutterBottom>
-          Dancer {dancer}
-        </Typography>
-        <div className={classes.accelGyro}>
-          <Chart metric="Gyrometer" dancer={dancer} hand='Left'/>
-          <Chart metric="Gyrometer" dancer={dancer} hand='Right'/>
+        <div className={classes.layout}>
         </div>
         <div className={classes.accelGyro}>
-          <Chart metric="Accelerometer" dancer={dancer} hand='Left'/>
-          <Chart metric="Accelerometer" dancer={dancer} hand='Right'/>
+          <Typography component="h2" variant="h6" color="primary" gutterBottom>
+          Dancer {dancer}
+          </Typography>
+        </div>
+        <div className={classes.sensor}>
+          <div className={classes.accelGyro}>
+            <Typography component="h2" variant="h6" color="primary" gutterBottom>
+              Left Hand Sensor
+            </Typography>
+            <Chart metric="Accelerometer" dancer={dancer} hand='Left'/>
+            <Chart metric="Gyrometer" dancer={dancer} hand='Left'/>
+          </div>
+          <div className={classes.accelGyro}>
+            <Typography component="h2" variant="h6" color="primary" gutterBottom>
+              Right Hand Sensor
+            </Typography>
+            <Chart metric="Accelerometer" dancer={dancer} hand='Right'/>
+            <Chart metric="Gyrometer" dancer={dancer} hand='Right'/>
+          </div>
         </div>
       </Paper>
     </Grid>

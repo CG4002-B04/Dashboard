@@ -21,7 +21,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-import Chart from '../Chart/Chart';
+
 import EvalCardGroup from '../EvalCardGroup/EvalCardGroup'
 import ChartGroup from '../ChartGroup/ChartGroup'
 
@@ -109,16 +109,14 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 650,
   },
+  fixedHeightEvalCardGroup: {
+    height: 430,
+  },
 }));
 
 function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -126,7 +124,7 @@ function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const heightEvalCardGroup = clsx(classes.paper, classes.fixedHeightEvalCardGroup);
 
   return (
     <div className={classes.root}>
@@ -168,26 +166,21 @@ function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Paper className={fixedHeightPaper}>
+            <Grid item xs={9}>
+              <Paper className={heightEvalCardGroup}>
                 <Typography component="h2" variant="h6" color="primary" gutterBottom>
                   Dance - Realtime
                 </Typography>
                 <EvalCardGroup />
               </Paper>
             </Grid>
-            {/* <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
-                <Typography className={classes.heading}>Dancer 1</Typography>
-                <AccordionDetails>
-                  <Typography>Hello everyone </Typography>
-                </AccordionDetails>
-              </AccordionSummary>
-            </Accordion> */}
+            <Grid item xs={3}>
+              <Paper className={heightEvalCardGroup}>
+                <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                  Sync Delay
+                </Typography>
+              </Paper>
+            </Grid>
 
             <ChartGroup dancer="1"/>
             <ChartGroup dancer="2"/>

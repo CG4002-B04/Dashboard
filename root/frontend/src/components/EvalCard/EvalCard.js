@@ -9,11 +9,13 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   root: {
     display: 'flex',
-    width: 400,
-    maxWidth: 400,
-    margin: 'auto',
-    borderRadius: 12,
+    width: 240,
+    height: 350, 
+    maxWidth: 250,
+    margin: 'auto', //set it to auto do it doesn't cut off the title
+    borderRadius: 5,
     padding: 15,
+    justifyContent: 'center',
   },
   content: {
     flex: '1 0 auto',
@@ -21,6 +23,7 @@ const useStyles = makeStyles({
   media: {
     borderRadius: 6,
     height: 200,
+    width: 200,
   },
 });
 
