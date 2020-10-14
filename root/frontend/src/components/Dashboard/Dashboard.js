@@ -1,4 +1,11 @@
 import React, {useState} from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,10 +23,6 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems }from './listItems';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 
 import EvalCardGroup from '../EvalCardGroup/EvalCardGroup'
@@ -127,70 +130,93 @@ function Dashboard() {
   const heightEvalCardGroup = clsx(classes.paper, classes.fixedHeightEvalCardGroup);
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-          <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List></List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            <Grid item xs={9}>
-              <Paper className={heightEvalCardGroup}>
-                <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                  Dance - Realtime
-                </Typography>
-                <EvalCardGroup />
-              </Paper>
-            </Grid>
-            <Grid item xs={3}>
-              <Paper className={heightEvalCardGroup}>
-                <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                  Sync Delay
-                </Typography>
-              </Paper>
-            </Grid>
+    <Router>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            >
+            <MenuIcon />
+            </IconButton>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+              Dashboard
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>{mainListItems}</List>
+          <Divider />
+          <List></List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Switch>
+            <Route path="/" exact>
+              <Container maxWidth="lg" className={classes.container}>
+              <Grid container spacing={3}>
+                <Grid item xs={9}>
+                  <Paper className={heightEvalCardGroup}>
+                    <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                      <Box fontWeight="fontWeightBold">
+                        Dance - Realtime
+                      </Box>
+                    </Typography>
+                    <EvalCardGroup />
+                  </Paper>
+                </Grid>
+                <Grid item xs={3}>
+                  <Paper className={heightEvalCardGroup}>
+                    <Typography component="h2" variant="h6" color="primary"  gutterBottom>
+                      <Box fontWeight="fontWeightBold">
+                        Sync Delay
+                      </Box>
+                    </Typography>
+                    <Box pt={10}>
+                    </Box>
+                    <Typography component="h1" variant="h1" color="primary"  gutterBottom>
+                      0.0
+                    </Typography>
+                  </Paper>
+                </Grid>
 
-            <ChartGroup dancer="1"/>
-            <ChartGroup dancer="2"/>
-            <ChartGroup dancer="3"/>
-          </Grid>
-          <Box pt={4}>
-          </Box>
-        </Container>
-      </main>
-    </div>
+                <ChartGroup dancer="1"/>
+                <ChartGroup dancer="2"/>
+                <ChartGroup dancer="3"/>
+                </Grid>
+                <Box pt={4}>
+                </Box>
+              </Container>
+            </Route>
+            <Route path="/users">
+
+            </Route>
+            <Route path="/stats">
+
+            </Route>
+          </Switch>
+          
+        </main>
+      </div>
+    </Router>
+    
   );
 }
 

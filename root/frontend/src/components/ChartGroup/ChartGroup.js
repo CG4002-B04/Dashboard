@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import Chart from '../Chart/Chart';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,20 +40,27 @@ function ChartGroup({dancer}) {
         </div>
         <div className={classes.accelGyro}>
           <Typography component="h2" variant="h6" color="primary" gutterBottom>
-          Dancer {dancer}
+            <Box fontWeight="fontWeightBold">
+              Dancer {dancer}
+            </Box>
           </Typography>
         </div>
         <div className={classes.sensor}>
           <div className={classes.accelGyro}>
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
-              Left Hand Sensor
+              <Box fontWeight="fontWeightMedium">
+                Left Hand Sensor
+              </Box>
+              
             </Typography>
             <Chart metric="Accelerometer" dancer={dancer} hand='Left'/>
             <Chart metric="Gyrometer" dancer={dancer} hand='Left'/>
           </div>
           <div className={classes.accelGyro}>
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
-              Right Hand Sensor
+              <Box fontWeight="fontWeightMedium">
+                Right Hand Sensor
+              </Box>
             </Typography>
             <Chart metric="Accelerometer" dancer={dancer} hand='Right'/>
             <Chart metric="Gyrometer" dancer={dancer} hand='Right'/>
