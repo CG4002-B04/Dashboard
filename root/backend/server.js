@@ -44,11 +44,13 @@ function parseSensorData(sensorData) {
 
 function parseEvalData(evalData) {
   let splitData = evalData.split('|');
-  splitData[0] = splitData[0].substring(1);
+  splitData[0] = splitData[0].substring(3);
+  splitData[3] = splitData[3].substring(0, splitData[3].length - 1);
   return {
-          positions: splitData[0],
-          danceMoves: splitData[1],
-          syncDelay: splitData[2]
+          positions: splitData[0], // e.g. "1 2 3"
+          danceMoves: splitData[1], // e.g. scarecrow hair zigzag
+          confidence: splitData[2], // e.g. "0.9 0.8 0.85"
+          syncDelay: splitData[3] // e.g. 0.1
         }
 }
 
@@ -119,7 +121,7 @@ io.on('connect', (socket) => {
   
   socket.on('endpointData', (data) => {
     console.log(data);
-    if (data.includes("#")) { //evaluation data
+    if (data.includes("f'")) { //evaluation data
       processedEvalData = parseEvalData(data);
       io.emit('evalData', processedEvalData);
       saveEvalData(processedEvalData);

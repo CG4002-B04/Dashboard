@@ -196,7 +196,6 @@ function Dashboard() {
                     </Typography>
                   </Paper>
                 </Grid>
-
                 <ChartGroup dancer="1"/>
                 <ChartGroup dancer="2"/>
                 <ChartGroup dancer="3"/>

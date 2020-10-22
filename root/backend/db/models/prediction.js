@@ -7,8 +7,8 @@ const predictionSchema = new mongoose.Schema({
   },
   action: {
     type: String,
-    required: true,
-    enum: ['windows', 'pushback', 'rocket', 'elbow_lock', 'hair', 'scarecrow', 'zigzag', 'shouldershrug', 'logout']
+    required: true
+    // enum: ['windows', 'pushback', 'rocket', 'elbow_lock', 'hair', 'scarecrow', 'zigzag', 'shouldershrug', 'logout']
   },
   syncdelay: {
     type: String,
