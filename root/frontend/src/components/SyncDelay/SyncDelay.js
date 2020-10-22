@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import io from "socket.io-client";
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 const ENDPOINT = 'http://localhost:5000';
 let socket = io(ENDPOINT);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     display: 'flex',
@@ -19,7 +19,8 @@ const useStyles = makeStyles({
   fixedSyncDelayHeight: {
     height: 500,
   },
-})
+}));
+
 export default function SyncDelay() {
   const classes = useStyles();
   const [syncDelay, setSyncDelay] = useState('0.0');
@@ -41,6 +42,11 @@ export default function SyncDelay() {
       </Box>
       <Typography component="h1" variant="h1" color="primary"  gutterBottom>
         {syncDelay}
+      </Typography>
+      <Box pt={5}>
+      </Box>
+      <Typography component="h2" variant="h4">
+        Keep It Up!
       </Typography>
     </Paper>
   );

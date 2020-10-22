@@ -17,10 +17,10 @@ function EvalCardGroup() {
       setPositiontoDancers([...positionsToDancers, positionsToDancers[dancerData.id] = dancerData.name]);
     });
     socket.on('evalData', dataPoint => {
-      // console.log(dataPoint.danceMoves.split(" "));
-      // console.log(dataPoint.positions.split(" "));
-      // console.log(dataPoint.confidence.split(" "));
       console.log('evalData')
+      console.log(dataPoint.danceMoves.split(" "));
+      console.log(dataPoint.positions.split(" "));
+      console.log(dataPoint.confidence.split(" "));
       setPositions(dataPoint.positions.split(" "));
       setDanceMoves(dataPoint.danceMoves.split(" "));
       setConfidenceScores(dataPoint.confidence.split(" "));

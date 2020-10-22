@@ -6,6 +6,7 @@ import threading
 import sshtunnel
 import time
 import sys
+import socketio
 
 #import socketio
 # Connect to computer localhost which is portforwarded to xilinx localhost
@@ -14,15 +15,15 @@ EN_FORMAT = "utf-8"
 SECRET_KEY = "0000000000000000"
 BUFF_SIZE = 256
 SIO_ADDRESS = 'http://localhost:5000'
-SUNFIRE_USER = "shaunteo"
-SUNFIRE_PASS = "458Itali@"
+SUNFIRE_USER = "ivanandi"
+SUNFIRE_PASS = "ANDone61019980811297876123890"
 class DashboardClient():
     def __init__(self, ip_addr, secret_key, sio_address, buff_size=256):
         self.ip_addr = ip_addr
         self.buff_size = buff_size
         self.secret_key = secret_key
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # self.sio = socketio.Client()
+        self.sio = socketio.Client()
         self.sio_address = sio_address           
 
     def decrypt_message(self, cipher_text):
@@ -74,7 +75,7 @@ class DashboardClient():
                     msg = self.decrypt_message(data)
                     msg = msg.strip()
                     print(msg)
-                    # self.sio.emit('endpointData', msg)
+                    self.sio.emit('endpointData', msg)
                     # Upload to DB
                 else:
                     raise ConnectionResetError
@@ -90,7 +91,7 @@ class DashboardClient():
     def run(self):
         self.start_tunnel(SUNFIRE_USER, SUNFIRE_PASS)
         print(self.sio_address)
-        # self.sio.connect(self.sio_address)
+        self.sio.connect(self.sio_address)
         while True:
             try:
                 self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

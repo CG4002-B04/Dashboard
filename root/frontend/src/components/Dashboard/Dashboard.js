@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 import clsx from 'clsx';
@@ -27,6 +26,7 @@ import { mainListItems }from './listItems';
 
 import EvalCardGroup from '../EvalCardGroup/EvalCardGroup'
 import ChartGroup from '../ChartGroup/ChartGroup'
+import SyncDelay from '../SyncDelay/SyncDelay'
 
 const drawerWidth = 240;
 
@@ -145,7 +145,7 @@ function Dashboard() {
             <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              Dashboard
+              CG4002 Group 4 Dashboard
             </Typography>
           </Toolbar>
         </AppBar>
@@ -183,18 +183,7 @@ function Dashboard() {
                   </Paper>
                 </Grid>
                 <Grid item xs={3}>
-                  <Paper className={heightEvalCardGroup}>
-                    <Typography component="h2" variant="h6" color="primary"  gutterBottom>
-                      <Box fontWeight="fontWeightBold">
-                        Sync Delay
-                      </Box>
-                    </Typography>
-                    <Box pt={10}>
-                    </Box>
-                    <Typography component="h1" variant="h1" color="primary"  gutterBottom>
-                      0.0
-                    </Typography>
-                  </Paper>
+                  <SyncDelay />
                 </Grid>
                 <ChartGroup dancer="1"/>
                 <ChartGroup dancer="2"/>
