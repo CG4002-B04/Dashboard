@@ -123,9 +123,10 @@ io.on('connect', (socket) => {
     console.log(data);
     if (data.includes("f'")) { //evaluation data
       processedEvalData = parseEvalData(data);
-      io.emit('evalData', processedEvalData);
-      saveEvalData(processedEvalData);
       console.log('evalData');
+      console.log(processedEvalData);
+      io.emit('evalData', processedEvalData);
+      //saveEvalData(processedEvalData);
     } else if (data.includes("!D|0|")) { //data from dancer 1
       [processedAccelData1Left, processedGyroData1Left, processedAccelData1Right, processedGyroData1Right] = parseSensorData(data);
       io.sockets.emit('AccelerometerData1Left', processedAccelData1Left);

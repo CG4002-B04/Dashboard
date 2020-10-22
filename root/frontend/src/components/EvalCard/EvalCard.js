@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     width: 240,
-    height: 350, 
+    height: 400, 
     maxWidth: 250,
     margin: 'auto', //set it to auto do it doesn't cut off the title
     borderRadius: 5,
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function EvalCard({dancerName, position, danceMove}) {
+export default function EvalCard({dancerName, position, danceMove, confidenceScore}) {
   const classes = useStyles();
   console.log(dancerName);
   return (
@@ -44,9 +44,13 @@ export default function EvalCard({dancerName, position, danceMove}) {
           <Typography gutterBottom variant="h4" component="h2">
             {dancerName}
           </Typography>
-          <Typography variant="h5" component="h5">
+          <Typography gutterBottom variant="h5" component="h5">
             {danceMove}
           </Typography>
+          <Typography variant="h5" component="h5">
+            {confidenceScore}
+          </Typography>
+
         </CardContent>
       </CardActionArea>
     </Card>

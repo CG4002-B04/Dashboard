@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
     height: 650,
   },
   fixedHeightEvalCardGroup: {
-    height: 430,
+    height: 500,
   },
 }));
 
