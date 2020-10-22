@@ -50,7 +50,6 @@ export default function EvalCard({dancerName, position, danceMove, confidenceSco
           <Typography variant="h5" component="h5">
             {confidenceScore}
           </Typography>
-
         </CardContent>
       </CardActionArea>
     </Card>
