@@ -16,42 +16,49 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
-  fixedSyncDelayHeight: {
+  fixedConsensusHeight: {
     height: 500,
   },
 }));
 
-export default function SyncDelay() {
+export default function Consensus() {
   const classes = useStyles();
-  const [syncDelay, setSyncDelay] = useState('0.0');
-  const syncDelayHeight = clsx(classes.paper, classes.fixedSyncDelayHeight);
+  const [consensus, setConsensus] = useState(0.0);
+  const [numOfSamples, setNumOfSamples] = useState(0);
+  const [succSamples, setSuccSamples] = useState(0);
+  const consensusHeight = clsx(classes.paper, classes.fixedConsensusHeight);
 
   useEffect(() => {
     socket.on('evalData', dataPoint => {
-      setSyncDelay(dataPoint.syncDelay);
+      setNumOfSamples(numOfSamples + 1);
+      let danceMoves = dataPoint.danceMoves.split(" ");
+      if (danceMoves[0] === danceMoves[1] && danceMoves[0] === danceMoves[2]) {
+        setSuccSamples(succSamples + 1);
+      }
+      setConsensus = setConsensus((succSamples / numOfSamples).toFixed(2));
     });
   }, [])
   return (
-    <Paper className={syncDelayHeight}>
+    <Paper className={consensusHeight}>
       <Typography component="h2" variant="h6" color="primary"  gutterBottom>
         <Box fontWeight="fontWeightBold">
-          Sync Delay
+          Consensus Accuracy
         </Box>
       </Typography>
       <Box pt={10}>
       </Box>
       <Typography component="h1" variant="h1" color="primary"  gutterBottom>
-        {syncDelay.substring(0,4)}
+        {consensus}
       </Typography>
       <Box pt={5}>
       </Box>
-      {parseFloat(syncDelay) < 0.1 ? 
+      {consensus >= 0.5 ? 
         <Typography component="h2" variant="h4" color="green">
           Keep It Up!
         </Typography> 
         :
         <Typography component="h2" variant="h4" color="red">
-          Too slow!
+          Try harder
         </Typography>      
       }
     </Paper>

@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 
 export default function EvalCard({dancerName, position, danceMove, confidenceScore}) {
   const classes = useStyles();
+
   return (
     <Card className={classes.root} variant="outlined">
       <CardActionArea>
@@ -47,7 +48,7 @@ export default function EvalCard({dancerName, position, danceMove, confidenceSco
             {danceMove}
           </Typography>
           <Typography variant="h5" component="h5">
-            {confidenceScore}
+            {parseFloat(confidenceScore.substring(0, 4)) * 100}%
           </Typography>
         </CardContent>
       </CardActionArea>
