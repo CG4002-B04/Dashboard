@@ -148,7 +148,7 @@ io.on('connect', (socket) => {
       io.sockets.emit('AccelerometerData3Right', processedAccelData3Right);
       io.sockets.emit('GyrometerData3Right', processedGyroData3Right);
       //saveSensorData(processedAccelData3Right, processedGyroData3Right, 'right', 'James');
-    } else if (data.includes("!S")) { //dancer data
+    } else if (data.includes("!S")) { //dancer initialization data 
       processedDancerData = parseDancerData(data);
       console.log(processedDancerData);
       io.sockets.emit('DancerData', processedDancerData);
