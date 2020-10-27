@@ -14,7 +14,7 @@ function EvalCardGroup() {
   useEffect(() => {
     socket.on('DancerData', dancerData => {
       //TODO: figure out why it only renders after the next setState
-      setPositiontoDancers([...positionsToDancers, positionsToDancers[dancerData.id] = dancerData.name]);
+      setPositiontoDancers([...positionsToDancers, positionsToDancers[dancerData.id - 1] = dancerData.name]);
     });
     socket.on('evalData', dataPoint => {
       console.log('evalData')
@@ -25,7 +25,6 @@ function EvalCardGroup() {
       setDanceMoves(dataPoint.danceMoves.split(" "));
       setConfidenceScores(dataPoint.confidence.split(" "));
     });
-    
   }, [])
   
   return (

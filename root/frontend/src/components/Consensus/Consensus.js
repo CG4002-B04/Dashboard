@@ -27,16 +27,19 @@ export default function Consensus() {
   const [numOfSamples, setNumOfSamples] = useState(0);
   const [succSamples, setSuccSamples] = useState(0);
   const consensusHeight = clsx(classes.paper, classes.fixedConsensusHeight);
-
+  
   useEffect(() => {
-    socket.on('evalData', dataPoint => {
-      setNumOfSamples(numOfSamples + 1);
-      let danceMoves = dataPoint.danceMoves.split(" ");
-      if (danceMoves[0] === danceMoves[1] && danceMoves[0] === danceMoves[2]) {
-        setSuccSamples(succSamples + 1);
-      }
-      setConsensus = setConsensus((succSamples / numOfSamples).toFixed(2));
-    });
+   socket.on('evalData', dataPoint => {
+    setNumOfSamples(numOfSamples => numOfSamples + 1);
+    let danceMoves = dataPoint.danceMoves.split(" ");
+    if (danceMoves[0] === danceMoves[1] && danceMoves[0] === danceMoves[2]) {
+      setSuccSamples(succSamples + 1);
+    }
+    setConsensus(numOfSamples === 0 ? (0.0).toFixed(2) : (succSamples / numOfSamples).toFixed(2));
+    console.log('Succ: ' + succSamples)
+    console.log('Samples: ' + numOfSamples)
+    console.log('Consensus: ' + consensus)
+    }); 
   }, [])
   return (
     <Paper className={consensusHeight}>
@@ -48,7 +51,7 @@ export default function Consensus() {
       <Box pt={10}>
       </Box>
       <Typography component="h1" variant="h1" color="primary"  gutterBottom>
-        {consensus}
+        {consensus * 100}%
       </Typography>
       <Box pt={5}>
       </Box>

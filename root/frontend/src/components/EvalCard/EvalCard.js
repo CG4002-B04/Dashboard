@@ -48,7 +48,7 @@ export default function EvalCard({dancerName, position, danceMove, confidenceSco
             {danceMove}
           </Typography>
           <Typography variant="h5" component="h5">
-            {parseFloat(confidenceScore.substring(0, 4)) * 100}%
+            {(parseFloat(confidenceScore.substring(0, 4)) * 100).toFixed(0)}%
           </Typography>
         </CardContent>
       </CardActionArea>

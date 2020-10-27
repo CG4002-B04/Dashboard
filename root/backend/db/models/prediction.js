@@ -17,6 +17,9 @@ const predictionSchema = new mongoose.Schema({
   timestamp: {
     type: Date,
     default: Date.now //Current timestamp
+  },
+  dancer: {
+    type: String
   }
 })
 

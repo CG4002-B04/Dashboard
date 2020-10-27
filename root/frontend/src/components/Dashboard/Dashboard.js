@@ -27,6 +27,7 @@ import { mainListItems }from './listItems';
 import EvalCardGroup from '../EvalCardGroup/EvalCardGroup'
 import ChartGroup from '../ChartGroup/ChartGroup'
 import SyncDelay from '../SyncDelay/SyncDelay'
+import Consensus from '../Consensus/Consensus'
 
 const drawerWidth = 240;
 
@@ -184,6 +185,9 @@ function Dashboard() {
                 </Grid>
                 <Grid item xs={3}>
                   <SyncDelay />
+                </Grid>
+                <Grid item xs={4}>
+                  <Consensus />
                 </Grid>
                 <ChartGroup dancer="1"/>
                 <ChartGroup dancer="2"/>
