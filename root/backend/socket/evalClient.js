@@ -37,7 +37,7 @@ async function processLineByLine() {
 
   for await (const line of rl) {
     client.write(line);
-    await sleep(5000);
+    await sleep(2000);
   }
 }
 
@@ -51,4 +51,4 @@ processLineByLine();
 
 client.on('data',function(data){
   console.log('Data from server:' + data);
-});
+})

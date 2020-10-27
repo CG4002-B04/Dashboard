@@ -31,14 +31,17 @@ export default function Consensus() {
   useEffect(() => {
    socket.on('evalData', dataPoint => {
     setNumOfSamples(numOfSamples => numOfSamples + 1);
+    /*
     let danceMoves = dataPoint.danceMoves.split(" ");
     if (danceMoves[0] === danceMoves[1] && danceMoves[0] === danceMoves[2]) {
       setSuccSamples(succSamples + 1);
+      console.log('success');
     }
     setConsensus(numOfSamples === 0 ? (0.0).toFixed(2) : (succSamples / numOfSamples).toFixed(2));
-    console.log('Succ: ' + succSamples)
-    console.log('Samples: ' + numOfSamples)
-    console.log('Consensus: ' + consensus)
+    */
+    console.log('Succ: ' + succSamples);
+    console.log('Samples: ' + numOfSamples);
+    console.log('Consensus: ' + consensus);
     }); 
   }, [])
   return (
