@@ -1,0 +1,2 @@
+#1 2 3 |zigzag scarecrow rocket|0.8 0.92 0.90|0.052
+#3 2 1 |hair hair hair|0.8 0.92 0.90|0.038
