@@ -3,7 +3,6 @@ import {Scatter} from 'react-chartjs-2';
 import "./Chart.css"
 import "chartjs-plugin-streaming";
 import 'fontsource-roboto';
-import SensorData from "../SensorData/SensorData"
 import io from "socket.io-client";
 const ENDPOINT = 'http://localhost:5000';
 let socket = io(ENDPOINT);
