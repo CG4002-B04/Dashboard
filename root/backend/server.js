@@ -53,7 +53,7 @@ function parseEvalData(evalData) {
           danceMoves: splitData[1], // e.g. scarecrow hair zigzag
           confidence: splitData[2], // e.g. "0.9 0.8 0.85"
           syncDelay: splitData[3], // e.g. 0.1
-          dancers: splitData[4]
+          dancers: splitData[4] // e.g. Jack Jill John
         }
 }
 
@@ -86,7 +86,10 @@ function saveSensorData(accelData, gyroData, hand, dancer) {
   })
 }
 
-function check(move, danceMoves) {
+// Whether a dancer's move is correct is determined by 2 things:
+// 1. If at least another person is dancing the same thing (at least 2 out of 3 dances the same thing)
+// 2. If it's NoMatch, it's always incorrect
+function checkDanceMoveCorrect(move, danceMoves) {
   if (move === "NoMatch") return false;
   if (move === danceMoves[0] && danceMoves[0] === danceMoves[1] && danceMoves[1] === danceMoves[2]) {
     return true;
@@ -101,34 +104,62 @@ function check(move, danceMoves) {
     return false;
   }
 }
-// Whether a dancer's move is correct is determined by 2 things:
-// 1. If at least another person is dancing the same thing (at least 2 out of 3 dances the same thing)
-// 2. If it's NoMatch, it's always incorrect
 function saveEvalData(evalData) {
-  // Bool to determine whether the dancer is correct
-  let isCorrect1 = false;
-  let isCorrect2 = false;
-  let isCorrect3 = false;
-
   let splitActions = evalData.danceMoves.split("|");
-  let positions = splitActions[0].substring(1);
-  let danceMoves = splitActions[1].split(" ");
-  let dancers = splitActions[4].split(" ");
+  let positions = evalData.positions.split(" ");
+  let danceMoves = evalData.danceMOves.split(" ");
+  let confidences = evalData.confidence.split(" ");
+  let syncDelay = evalData.syncDelay;
+  let dancers = evalData.dancers.split(" ");
 
-  
-  
-  
   const eval1 = new Prediction({
-    positions: evalData.positions,
+    position: positions[0],
     action: danceMoves[0],
-    syncdelay: evalData.syncDelay
+    confidence: confidences[0],
+    syncdelay: evalData.syncDelay,
+    dancer: dancers[0],
+    isCorrect: checkDanceMoveCorrect(danceMoves[0], danceMoves)
   });
   eval1.save((err, results) => {
     if (err) {
       console.error(err);
       process.exit(1);
     } else {
-      console.log('Saved: ', results);
+      console.log('Saved Eval1: ', results);
+    }
+  })
+
+  const eval2 = new Prediction({
+    position: positions[1],
+    action: danceMoves[1],
+    confidence: confidences[1],
+    syncdelay: evalData.syncDelay,
+    dancer: dancers[1],
+    isCorrect: checkDanceMoveCorrect(danceMoves[1], danceMoves)
+  });
+  eval2.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved Eval2: ', results);
+    }
+  })
+
+  const eval3 = new Prediction({
+    position: positions[2],
+    action: danceMoves[2],
+    confidence: confidences[2],
+    syncdelay: evalData.syncDelay,
+    dancer: dancers[2],
+    isCorrect: checkDanceMoveCorrect(danceMoves[2], danceMoves)
+  });
+  eval3.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved Eval3: ', results);
     }
   })
 }
