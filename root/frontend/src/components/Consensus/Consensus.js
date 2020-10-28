@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import io from "socket.io-client";
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,27 +23,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Consensus() {
   const classes = useStyles();
+  let numOfSamples = 0;
+  let succSamples = 0;
   const [consensus, setConsensus] = useState(0.0);
-  const [numOfSamples, setNumOfSamples] = useState(0);
-  const [succSamples, setSuccSamples] = useState(0);
   const consensusHeight = clsx(classes.paper, classes.fixedConsensusHeight);
   
   useEffect(() => {
-   socket.on('evalData', dataPoint => {
-    setNumOfSamples(numOfSamples => numOfSamples + 1);
-    /*
-    let danceMoves = dataPoint.danceMoves.split(" ");
-    if (danceMoves[0] === danceMoves[1] && danceMoves[0] === danceMoves[2]) {
-      setSuccSamples(succSamples + 1);
-      console.log('success');
-    }
-    setConsensus(numOfSamples === 0 ? (0.0).toFixed(2) : (succSamples / numOfSamples).toFixed(2));
-    */
-    console.log('Succ: ' + succSamples);
-    console.log('Samples: ' + numOfSamples);
-    console.log('Consensus: ' + consensus);
-    }); 
-  }, [])
+    socket.on('evalData', dataPoint => {
+      numOfSamples++;
+      let danceMoves = dataPoint.danceMoves.split(" ");
+      if (danceMoves[0] === danceMoves[1] && danceMoves[0] === danceMoves[2]) {
+        succSamples++;
+      }
+      setConsensus(prev => succSamples / numOfSamples);
+      //console.log('Succ: ' + succSamples);
+      //console.log('Samples: ' + numOfSamples);
+      //console.log('Consensus: ' + consensus);
+    });
+  }, []);
+
   return (
     <Paper className={consensusHeight}>
       <Typography component="h2" variant="h6" color="primary"  gutterBottom>
@@ -54,11 +52,11 @@ export default function Consensus() {
       <Box pt={10}>
       </Box>
       <Typography component="h1" variant="h1" color="primary"  gutterBottom>
-        {consensus * 100}%
+        {(consensus * 100).toFixed(0)}%
       </Typography>
       <Box pt={5}>
       </Box>
-      {consensus >= 0.5 ? 
+      {consensus >= 0.5 ?
         <Typography component="h2" variant="h4" color="green">
           Keep It Up!
         </Typography> 

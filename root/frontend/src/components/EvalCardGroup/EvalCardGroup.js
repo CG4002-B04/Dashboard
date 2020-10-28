@@ -14,6 +14,7 @@ function EvalCardGroup() {
   useEffect(() => {
     socket.on('DancerData', dancerData => {
       //TODO: figure out why it only renders after the next setState
+      // setPositionToDacners only updates value for the next render.
       setPositiontoDancers([...positionsToDancers, positionsToDancers[dancerData.id - 1] = dancerData.name]);
     });
     socket.on('evalData', dataPoint => {
