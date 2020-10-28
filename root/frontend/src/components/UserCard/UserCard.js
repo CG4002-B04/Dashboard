@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     width: 240,
-    height: 400, 
+    height: 350, 
     margin: 'auto', //set it to auto do it doesn't cut off the title
     borderRadius: 5,
     padding: 15,
@@ -32,14 +32,14 @@ export default function UserCard ({dancerName}) {
 
   return (
     <div>
-      <Box pt={3}></Box>
+      <Box pt={1}></Box>
       <Card className={classes.root} variant="outlined">
         <CardActionArea>
           <CardMedia
             className={classes.media}
             image={require('../../static/' + dancerName + '.jpg')}
           />
-          <Box pt={3}></Box>
+          <Box pt={1}></Box>
           <CardContent>
             <Typography gutterBottom variant="h4" component="h2">
               {dancerName}
