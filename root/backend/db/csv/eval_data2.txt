@@ -1,8 +1,9 @@
 #1 2 3|zigzag scarecrow rocket|0.8 0.92 0.90|0.052|JingXuan Hans Jiajian
 #3 2 1|hair hair hair|0.8 0.92 0.90|0.038|Jiajian Hans JingXuan
-#2 3 1|hair hair hair|0.9 0.8 0.91|0.038|Hans Jiajian JingXuan
+#2 3 1|hair rocket rocket|0.9 0.8 0.91|0.038|Hans Jiajian JingXuan
 #1 3 2|scarecrow hair hair|0.9 0.8 0.91|0.038|JingXuan Jiajian Hans
 #1 2 3|zigzag zigzag zigzag|0.8 0.9 0.7|0.123|JingXuan Hans JiaJian
-#1 2 3|zigzag scarecrow rocket|0.8 0.92 0.90|0.052|JingXuan Hans Jiajian
-#3 2 1|hair hair hair|0.8 0.92 0.90|0.038|Jiajian Hans JingXuan
-#2 3 1|hair hair hair|0.9 0.8 0.91|0.038|Hans Jiajian JingXuan
+#1 2 3|zigzag rocket rocket|0.8 0.92 0.90|0.052|JingXuan Hans Jiajian
+#3 2 1|hair rocket rocket|0.8 0.92 0.90|0.038|Jiajian Hans JingXuan
+#2 3 1|rocket rocket hair|0.9 0.8 0.91|0.038|Hans Jiajian JingXuan
+#1 3 2|NoMatch rocket rocket|0.8 0.7 0.5|0.038|Jiajian JingXuan Hans

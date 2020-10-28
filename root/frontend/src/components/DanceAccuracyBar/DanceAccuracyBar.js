@@ -26,6 +26,8 @@ const options = {
     yAxes: [
       {
         ticks: {
+          max: 100,
+          min: 0,
           beginAtZero: true,
         },
       },
@@ -136,7 +138,9 @@ const DanceAccuracyBar = () => {
           datasets: [
             {
               label: '% Accuracy',
-              data: [windowsConsensus, pushbackConsensus, elbowlockConsensus, rocketConsensus, hairConsensus, zigzagConsensus, scarecrowConsensus, shoulderShrugConsensus],
+              data: [(windowsConsensus*100).toFixed(0), (pushbackConsensus*100).toFixed(0), (elbowlockConsensus*100).toFixed(0), 
+                     (rocketConsensus*100).toFixed(0), (hairConsensus*100).toFixed(0), (zigzagConsensus*100).toFixed(0), 
+                     (scarecrowConsensus*100).toFixed(0), (shoulderShrugConsensus*100).toFixed(0)],
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
