@@ -8,7 +8,7 @@ const predictionSchema = new mongoose.Schema({
   action: {
     type: String,
     required: true
-    // enum: ['windows', 'pushback', 'rocket', 'elbow_lock', 'hair', 'scarecrow', 'zigzag', 'shouldershrug', 'logout']
+    // enum: ['windows', 'pushback', 'rocket', 'elbow_lock', 'hair', 'scarecrow', 'zigzag', 'shouldershrug']
   },
   syncdelay: {
     type: String,
@@ -19,7 +19,8 @@ const predictionSchema = new mongoose.Schema({
     default: Date.now //Current timestamp
   },
   dancer: {
-    type: String
+    type: String,
+    default: "Unknown"
   }
 })
 

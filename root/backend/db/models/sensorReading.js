@@ -33,7 +33,7 @@ const sensorReadingSchema = new mongoose.Schema({
     type: String,
     enum: ['right', 'left']
   },
-  user: {
+  dancer: {
     type: String,
     required: true
   }
