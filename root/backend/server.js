@@ -109,11 +109,11 @@ function checkDanceMoveCorrect(move, danceMoves) {
 }
 
 //TODO: Duplicate calculation of syncdelay if all three are not the same
-function saveEvalGroup (danceMoves) {
+function saveEvalGroup (danceMoves, syncDelay) {
   if (danceMoves[0] === danceMoves[1] && danceMoves[1] === danceMoves[2]) {      
     const eval = new evaluationGroup({
       action: danceMoves[0],
-      syncdelay: evalData.syncDelay,
+      syncdelay: syncDelay,
       isCorrect: true 
     });
     eval.save((err, results) => {
@@ -128,7 +128,7 @@ function saveEvalGroup (danceMoves) {
   } else if (danceMoves[0] === danceMoves[1] && danceMoves[1] !== danceMoves[2]) {
     const eval = new evaluationGroup({
       action: danceMoves[0],
-      syncdelay: evalData.syncDelay,
+      syncdelay: syncDelay,
       isCorrect: true 
     })
     eval.save((err, results) => {
@@ -142,7 +142,7 @@ function saveEvalGroup (danceMoves) {
   } else if (danceMoves[0] === danceMoves[2] && danceMoves[2] !== danceMoves[1]) {
     const eval = new evaluationGroup({
       action: danceMoves[0],
-      syncdelay: evalData.syncDelay,
+      syncdelay: syncDelay,
       isCorrect: true 
     })
     eval.save((err, results) => {
@@ -156,7 +156,7 @@ function saveEvalGroup (danceMoves) {
   } else if (danceMoves[1] === danceMoves[2] && danceMoves[2] !== danceMoves[0]) {
     const eval = new evaluationGroup({
       action: danceMoves[1],
-      syncdelay: evalData.syncDelay,
+      syncdelay: syncDelay,
       isCorrect: true 
     })
     eval.save((err, results) => {
@@ -171,17 +171,17 @@ function saveEvalGroup (danceMoves) {
     //all dance moves are different, mark them all as incorrect and insert them into the database
     const eval1 = new evaluationGroup({
       action: danceMoves[0],
-      syncdelay: evalData.syncDelay,
+      syncdelay: syncDelay,
       isCorrect: false
     });
     const eval2 = new evaluationGroup({
       action: danceMoves[1],
-      syncdelay: evalData.syncDelay,
+      syncdelay: syncDelay,
       isCorrect: false
     });
     const eval3 = new evaluationGroup({
-      action: danceMoves[1],
-      syncdelay: evalData.syncDelay,
+      action: danceMoves[2],
+      syncdelay: syncDelay,
       isCorrect: false
     });
     eval1.save((err, results) => {
@@ -211,7 +211,7 @@ function saveEvalGroup (danceMoves) {
   }
 }
 
-// TODO: Refactor to functions
+// TODO: Refactor to smaller functions
 function saveEvalData(evalData) {
   let positions = evalData.positions.split(" ");
   let danceMoves = evalData.danceMoves.split(" ");
@@ -268,6 +268,8 @@ function saveEvalData(evalData) {
       console.log('Saved Eval3: ', results);
     }
   })
+
+  saveEvalGroup(danceMoves, evalData.syncDelay);
 
   
 }
