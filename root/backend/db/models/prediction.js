@@ -1,10 +1,8 @@
 const mongoose = require('mongoose')
 
+// Accuracy, Top confusing moves, Best moves, Graph of all the moves, Average Sync Delay, Confidence 
+// Differentiate between NoMatch and not enough moves
 const predictionSchema = new mongoose.Schema({
-  positions: {
-    type: String,
-    required: true,
-  },
   action: {
     type: String,
     required: true
@@ -25,6 +23,9 @@ const predictionSchema = new mongoose.Schema({
   isCorrect: {
     type: Boolean,
     default: false
+  },
+  confidence: {
+    type: String
   }
 })
 

@@ -56,7 +56,8 @@ const DanceAccuracyBar = () => {
   socket.on('evalData', dataPoint => {
     console.log('danceaccuracy')
     let danceMoves = dataPoint.danceMoves.split(" ");
-    // onlyu infer correct dance move if two people are dancing for the same thing
+    // only infer correct dance move if two people are dancing for the same thing
+    // TODO: don't count if it's no match
     if (danceMoves[0] === danceMoves[1] && danceMoves[1] === danceMoves[2]) {
       danceMove = danceMoves[0];
     } else if (danceMoves[0] === danceMoves[1] && danceMoves[1] !== danceMoves[2]) {

@@ -86,14 +86,44 @@ function saveSensorData(accelData, gyroData, hand, dancer) {
   })
 }
 
+function check(move, danceMoves) {
+  if (move === "NoMatch") return false;
+  if (move === danceMoves[0] && danceMoves[0] === danceMoves[1] && danceMoves[1] === danceMoves[2]) {
+    return true;
+  } else if (move === danceMoves[0] && danceMoves[0] === danceMoves[1] && danceMoves[1] !== danceMoves[2]) {
+    return true;
+  } else if (move === danceMoves[0] && danceMoves[0] === danceMoves[2] && danceMoves[2] !== danceMoves[1]) {
+    return true;
+  } else if (move === danceMoves[1] && danceMoves[1] === danceMoves[2] && danceMoves[2] !== danceMoves[0]) {
+    return true;
+  } else {
+    //all dance moves are different
+    return false;
+  }
+}
+// Whether a dancer's move is correct is determined by 2 things:
+// 1. If at least another person is dancing the same thing (at least 2 out of 3 dances the same thing)
+// 2. If it's NoMatch, it's always incorrect
 function saveEvalData(evalData) {
-  let splitActions = evalData.danceMoves.split(" ");
-  const eval = new Prediction({
+  // Bool to determine whether the dancer is correct
+  let isCorrect1 = false;
+  let isCorrect2 = false;
+  let isCorrect3 = false;
+
+  let splitActions = evalData.danceMoves.split("|");
+  let positions = splitActions[0].substring(1);
+  let danceMoves = splitActions[1].split(" ");
+  let dancers = splitActions[4].split(" ");
+
+  
+  
+  
+  const eval1 = new Prediction({
     positions: evalData.positions,
-    action: splitActions[0],
+    action: danceMoves[0],
     syncdelay: evalData.syncDelay
   });
-  eval.save((err, results) => {
+  eval1.save((err, results) => {
     if (err) {
       console.error(err);
       process.exit(1);
