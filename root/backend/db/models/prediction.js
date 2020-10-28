@@ -21,6 +21,10 @@ const predictionSchema = new mongoose.Schema({
   dancer: {
     type: String,
     default: "Unknown"
+  },
+  isCorrect: {
+    type: Boolean,
+    default: false
   }
 })
 
