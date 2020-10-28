@@ -38,6 +38,9 @@ function parseSensorData(sensorData) {
             x: splitData[11],
             y: splitData[12],
             z: splitData[13]
+          },
+          {
+            dancer: splitData[14]
           }
          ] 
 }
@@ -45,12 +48,12 @@ function parseSensorData(sensorData) {
 function parseEvalData(evalData) {
   let splitData = evalData.split('|');
   splitData[0] = splitData[0].substring(1);
-  splitData[3] = splitData[3];
   return {
           positions: splitData[0], // e.g. "1 2 3"
           danceMoves: splitData[1], // e.g. scarecrow hair zigzag
           confidence: splitData[2], // e.g. "0.9 0.8 0.85"
-          syncDelay: splitData[3] // e.g. 0.1
+          syncDelay: splitData[3], // e.g. 0.1
+          dancers: splitData[4]
         }
 }
 

@@ -13,7 +13,10 @@ const dancerSchema = new mongoose.Schema({
   },
   worstmove: {
     type: String,
-  }
+  },
+  averageSyncDelay: {
+    type: String,
+  },
 })
 
 module.exports = mongoose.model('dancer', dancerSchema)
