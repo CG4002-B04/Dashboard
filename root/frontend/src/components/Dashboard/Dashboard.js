@@ -28,6 +28,7 @@ import EvalCardGroup from '../EvalCardGroup/EvalCardGroup'
 import ChartGroup from '../ChartGroup/ChartGroup'
 import SyncDelay from '../SyncDelay/SyncDelay'
 import Consensus from '../Consensus/Consensus'
+import DanceAccuracyBar from '../DanceAccuracyBar/DanceAccuracyBar';
 
 const drawerWidth = 240;
 
@@ -188,6 +189,9 @@ function Dashboard() {
                 </Grid>
                 <Grid item xs={4}>
                   <Consensus />
+                </Grid>
+                <Grid item xs={8}>
+                  <DanceAccuracyBar/>
                 </Grid>
                 <ChartGroup dancer="1"/>
                 <ChartGroup dancer="2"/>
