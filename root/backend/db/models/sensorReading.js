@@ -35,7 +35,6 @@ const sensorReadingSchema = new mongoose.Schema({
   },
   dancer: {
     type: String,
-    required: true
   }
 })
 

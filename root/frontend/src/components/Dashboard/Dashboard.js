@@ -29,6 +29,7 @@ import ChartGroup from '../ChartGroup/ChartGroup'
 import SyncDelay from '../SyncDelay/SyncDelay'
 import Consensus from '../Consensus/Consensus'
 import DanceAccuracyBar from '../DanceAccuracyBar/DanceAccuracyBar';
+import UserStats from '../UserStats/UserStats'
 
 const drawerWidth = 240;
 
@@ -173,39 +174,52 @@ function Dashboard() {
           <Switch>
             <Route path="/" exact>
               <Container maxWidth="lg" className={classes.container}>
-              <Grid container spacing={3}>
-                <Grid item xs={9}>
-                  <Paper className={heightEvalCardGroup}>
-                    <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                      <Box fontWeight="fontWeightBold">
-                        Dance - Realtime
-                      </Box>
-                    </Typography>
-                    <EvalCardGroup />
-                  </Paper>
-                </Grid>
-                <Grid item xs={3}>
-                  <SyncDelay />
-                </Grid>
-                <Grid item xs={4}>
-                  <Consensus />
-                </Grid>
-                <Grid item xs={8}>
-                  <DanceAccuracyBar/>
-                </Grid>
-                <ChartGroup dancer="1"/>
-                <ChartGroup dancer="2"/>
-                <ChartGroup dancer="3"/>
+                <Grid container spacing={3}>
+                  <Grid item xs={9}>
+                    <Paper className={heightEvalCardGroup}>
+                      <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                        <Box fontWeight="fontWeightBold">
+                          Dance - Realtime
+                        </Box>
+                      </Typography>
+                      <EvalCardGroup />
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <SyncDelay />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Consensus />
+                  </Grid>
+                  <Grid item xs={8}>
+                    <DanceAccuracyBar/>
+                  </Grid>
+                  <ChartGroup dancer="1"/>
+                  <ChartGroup dancer="2"/>
+                  <ChartGroup dancer="3"/>
                 </Grid>
                 <Box pt={4}>
                 </Box>
               </Container>
             </Route>
             <Route path="/users">
-
+              <Container maxWidth="lg" className={classes.container}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <UserStats name="JingXuan"/>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <UserStats name="Hans" />
+                  </Grid>
+                  <Grid item xs ={12}>
+                    <UserStats name="JiaJian" />
+                  </Grid>
+                </Grid>
+                <Box pt={4}>
+                </Box>
+              </Container>
             </Route>
             <Route path="/stats">
-
             </Route>
           </Switch>
           

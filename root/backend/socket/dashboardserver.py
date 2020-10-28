@@ -4,7 +4,11 @@ from Cryptodome.Cipher import AES
 from Cryptodome import Random
 import threading
 import sshtunnel
+import time
+import sys
 import socketio
+
+#import socketio
 # Connect to computer localhost which is portforwarded to xilinx localhost
 HOST_ADDR = ('127.0.0.1', 8083)
 EN_FORMAT = "utf-8"
@@ -62,13 +66,8 @@ class DashboardClient():
             remaining -= len(received)
         return b''.join(received_chunks)
 
-    def run(self):
-        self.start_tunnel(SUNFIRE_USER, SUNFIRE_PASS)
-        self.client.settimeout(5)
-        print(self.sio_address)
-        self.sio.connect(self.sio_address)
-        self.client.connect(self.ip_addr)
-        print(f"[ULTRA96 CONNECTED] Dashboard is connected to Ultra96")
+    def listening(self):
+        self.client.settimeout(1)
         while True:
             try:
                 data = self.recvall(self.client)
@@ -79,12 +78,31 @@ class DashboardClient():
                     self.sio.emit('endpointData', msg)
                     # Upload to DB
                 else:
-                    print("[ERROR] No data received")
-                    break
+                    raise ConnectionResetError
             except socket.timeout:
                 pass
+            except ConnectionResetError:
+                print("[CONNECTION DROPPED] Connection to ultra96 dropped, trying to reconnect")
+                return
             except KeyboardInterrupt:
-                break
+                self.client.close()
+                sys.exit()
+
+    def run(self):
+        self.start_tunnel(SUNFIRE_USER, SUNFIRE_PASS)
+        print(self.sio_address)
+        self.sio.connect(self.sio_address)
+        while True:
+            try:
+                self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self.client.connect(self.ip_addr)
+                print(f"[ULTRA96 CONNECTED] Dashboard is connected to Ultra96")
+                self.listening()
+                time.sleep(1)
+            except ConnectionRefusedError:
+                print("[TRYING] Why u no let me connect?? (┛ಠ_ಠ)┛彡┻━┻")
+            except Exception as e:
+                print(type(e))
         self.client.close()
         print("[CLOSED] Dashboard socket has closed")
 

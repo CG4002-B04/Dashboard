@@ -123,9 +123,9 @@ const Chart = ({metric, dancer, hand}) => {
             xAxes: [{
               type: 'realtime',
               realtime: {
-                duration: 10000,
-                ttl: 30000,
-                refresh: 400,
+                duration: 8000,
+                ttl: 10000,
+                refresh: 500,
                 delay: 1000,
                 pause: false,
                 onRefresh: function(chart) {
@@ -164,7 +164,7 @@ const Chart = ({metric, dancer, hand}) => {
           },
           plugins: {
             streaming: {
-              frameRate: 30
+              frameRate: 20
             }
           }
         }}
