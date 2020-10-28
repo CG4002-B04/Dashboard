@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import io from "socket.io-client";
 import { Bar } from 'react-chartjs-2';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
 
-
-const ENDPOINT = 'http://localhost:5000'
-let socket = io(ENDPOINT);
 
 const useStyles = makeStyles((theme) => ({
   paper: {
