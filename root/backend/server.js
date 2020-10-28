@@ -40,7 +40,7 @@ function parseSensorData(sensorData) {
             z: splitData[13]
           },
           {
-            dancer: splitData[14]
+            dancer: splitData[15]
           }
          ] 
 }
@@ -65,7 +65,7 @@ function parseDancerData(dancerData) {
         }
 }
 
-function saveSensorData(accelData, gyroData, hand, user) {
+function saveSensorData(accelData, gyroData, hand, dancer) {
   const reading = new SensorReading({
     accelX: parseInt(accelData.x),
     accelY: parseInt(accelData.y),
@@ -74,7 +74,7 @@ function saveSensorData(accelData, gyroData, hand, user) {
     gyroY: parseInt(gyroData.y),
     gyroZ: parseInt(gyroData.z),
     hand: hand,
-    user: user
+    dancer: dancer 
   });
   reading.save((err, results) => {
     if (err) {
