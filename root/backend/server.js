@@ -104,12 +104,11 @@ function checkDanceMoveCorrect(move, danceMoves) {
     return false;
   }
 }
+
 function saveEvalData(evalData) {
-  let splitActions = evalData.danceMoves.split("|");
   let positions = evalData.positions.split(" ");
-  let danceMoves = evalData.danceMOves.split(" ");
+  let danceMoves = evalData.danceMoves.split(" ");
   let confidences = evalData.confidence.split(" ");
-  let syncDelay = evalData.syncDelay;
   let dancers = evalData.dancers.split(" ");
 
   const eval1 = new Prediction({

@@ -19,4 +19,9 @@ MongoClient.connect(url, function(err, db) {
     console.log(`Collection "dancers" created!`)
   })
   db.close();
+
+  dbo.createCollection("evaluationgroups", function (err, res) {
+    if (err) throw err;
+    console.log(`Collection "evaluationgroups" created!`);
+  })
 });
