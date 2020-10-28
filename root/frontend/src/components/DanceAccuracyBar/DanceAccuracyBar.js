@@ -115,6 +115,7 @@ const DanceAccuracyBar = () => {
                                           shoulderShrugConsensus))
   useEffect(() => {
     socket.on('evalData', dataPoint => {
+      console.log('danceaccuracy')
       let danceMoves = dataPoint.danceMoves.split(" ");
       // onlyu infer correct dance move if two people are dancing for the same thing
       if (danceMoves[0] === danceMoves[1] && danceMoves[1] === danceMoves[2]) {
@@ -129,6 +130,7 @@ const DanceAccuracyBar = () => {
         //all dance moves are different
         danceMove = "NoMatch";
       }
+      console.log(danceMove);
       for (let i = 0; i < 8; i++) {
         if (danceMove === dances[i]) {
           numOfSamples[i]++;
@@ -141,41 +143,85 @@ const DanceAccuracyBar = () => {
         if (numOfSamples[i] !== 0) {
             switch (dances[i]) {
             case "windows":
+              console.log("windows.");
               setWindowsConsensus(prev => succSamples[i] / numOfSamples[i])
             break;
             case "pushback":
+              console.log("pushback.");
               setPushbackConsensus(prev => succSamples[i] / numOfSamples[i])
             break;
             case "elbowlock":
+              console.log("elbowlock.");
               setElbowllockConsensus(prev => succSamples[i] / numOfSamples[i])
             break;
             case "rocket":
+              console.log("rocket.");
               setRocketConsensus(prev => succSamples[i] / numOfSamples[i])
             break;
             case "hair":
+              console.log("hair.");
               setHairConsensus(prev => succSamples[i] / numOfSamples[i])
             break;
             case "zigzag":
+              console.log("zigzag.");
               setZigzagConsensus(prev => succSamples[i] / numOfSamples[i])
             break;
             case "scarecrow":
+              console.log("scarecrow.");
               setScarecrowConsensus(prev => succSamples[i] / numOfSamples[i])
             break;
             case "shouldershrug":
+              console.log("shouldershrug.");
               setShoulderShrugConsensus(prev => succSamples[i] / numOfSamples[i])
             break;
             default:
+              console.log("default")
           }
         }
       } 
-      setData(genData(windowsConsensus,
-                      pushbackConsensus,
-                      elbowlockConsensus,
-                      rocketConsensus,
-                      hairConsensus,
-                      zigzagConsensus,
-                      scarecrowConsensus,
-                      shoulderShrugConsensus))
+      /*
+      setData(
+        {
+          labels: ['Windows', 'Pushback', 'Elbow Lock', 'Rocket', 'Hair', 'ZigZag', 'Scarecrow', 'Shouldershrug'],
+          datasets: [
+            {
+              label: '% Accuracy',
+              data: [windowsConsensus, pushbackConsensus, elbowlockConsensus, rocketConsensus, 
+                    hairConsensus, zigzagConsensus, scarecrowConsensus, shoulderShrugConsensus],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(204, 0, 102, 0.2)',
+                'rgba(96, 96, 96, 0.2)',
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(204, 0, 102, 1)',
+                'rgba(96, 96, 96, 1)'
+              ],
+              borderWidth: 1,
+            },
+          ],
+        }
+      )
+      */
+      setData(genData(windowsConsensus * 100,
+                      pushbackConsensus * 100,
+                      elbowlockConsensus * 100,
+                      rocketConsensus * 100,
+                      hairConsensus * 100,
+                      zigzagConsensus * 100,
+                      scarecrowConsensus * 100,
+                      shoulderShrugConsensus * 100));
       // for each dance, check whether the dance is in one of the 3 dance moves
       // if the dance in the minority, we consider it as a miss
       // else consider it as correct
@@ -200,7 +246,40 @@ const DanceAccuracyBar = () => {
       <div className='header'>
         <h1 className='title'>Dance Moves Accuracy</h1>
       </div>
-      <Bar data={data} options={options} />
+      {windowsConsensus}, {pushbackConsensus}, {elbowlockConsensus}, {rocketConsensus}, {hairConsensus}, {zigzagConsensus}, {scarecrowConsensus}, {shoulderShrugConsensus}
+      <Bar data={
+        {
+          labels: ['Windows', 'Pushback', 'Elbow Lock', 'Rocket', 'Hair', 'ZigZag', 'Scarecrow', 'Shouldershrug'],
+          datasets: [
+            {
+              label: '% Accuracy',
+              data: [windowsConsensus, pushbackConsensus, elbowlockConsensus, rocketConsensus, hairConsensus, zigzagConsensus, scarecrowConsensus, shoulderShrugConsensus],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(204, 0, 102, 0.2)',
+                'rgba(96, 96, 96, 0.2)',
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(204, 0, 102, 1)',
+                'rgba(96, 96, 96, 1)'
+              ],
+              borderWidth: 1,
+            },
+          ],
+        }
+      } 
+      options={options} />
     </Paper>
   )
 }
