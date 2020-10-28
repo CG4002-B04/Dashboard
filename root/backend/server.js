@@ -8,13 +8,16 @@ const io = socketio(server);
 
 const mongoose = require('mongoose');
 const sensorReading = require('./db/models/sensorReading');
-const prediction = require('./db/models/prediction.js')
+const prediction = require('./db/models/prediction.js');
+const evaluationGroup = require('./db/models/evaluationGroup');
 mongoose.connect('mongodb://localhost:27017/CG4002_Dashboard', {userMongoclient: true});
 mongoose.Promise = global.Promise;
 const SensorReading = sensorReading;
 const Prediction = prediction;
 
 app.use(cors());
+
+//TODO: Modularize the code
 
 //split to acceleration data and gyro data
 function parseSensorData(sensorData) {
@@ -105,6 +108,110 @@ function checkDanceMoveCorrect(move, danceMoves) {
   }
 }
 
+//TODO: Duplicate calculation of syncdelay if all three are not the same
+function saveEvalGroup (danceMoves) {
+  if (danceMoves[0] === danceMoves[1] && danceMoves[1] === danceMoves[2]) {      
+    const eval = new evaluationGroup({
+      action: danceMoves[0],
+      syncdelay: evalData.syncDelay,
+      isCorrect: true 
+    });
+    eval.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved SaveEvalGroup: ', results);
+    }
+    })
+
+  } else if (danceMoves[0] === danceMoves[1] && danceMoves[1] !== danceMoves[2]) {
+    const eval = new evaluationGroup({
+      action: danceMoves[0],
+      syncdelay: evalData.syncDelay,
+      isCorrect: true 
+    })
+    eval.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved SaveEvalGroup: ', results);
+    }
+    })
+  } else if (danceMoves[0] === danceMoves[2] && danceMoves[2] !== danceMoves[1]) {
+    const eval = new evaluationGroup({
+      action: danceMoves[0],
+      syncdelay: evalData.syncDelay,
+      isCorrect: true 
+    })
+    eval.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved SaveEvalGroup: ', results);
+    }
+    })
+  } else if (danceMoves[1] === danceMoves[2] && danceMoves[2] !== danceMoves[0]) {
+    const eval = new evaluationGroup({
+      action: danceMoves[1],
+      syncdelay: evalData.syncDelay,
+      isCorrect: true 
+    })
+    eval.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved SaveEvalGroup: ', results);
+    }
+    })
+  } else {
+    //all dance moves are different, mark them all as incorrect and insert them into the database
+    const eval1 = new evaluationGroup({
+      action: danceMoves[0],
+      syncdelay: evalData.syncDelay,
+      isCorrect: false
+    });
+    const eval2 = new evaluationGroup({
+      action: danceMoves[1],
+      syncdelay: evalData.syncDelay,
+      isCorrect: false
+    });
+    const eval3 = new evaluationGroup({
+      action: danceMoves[1],
+      syncdelay: evalData.syncDelay,
+      isCorrect: false
+    });
+    eval1.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved SaveEvalGroup: ', results);
+    }
+    })
+    eval2.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved SaveEvalGroup: ', results);
+    }
+    })
+    eval3.save((err, results) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    } else {
+      console.log('Saved SaveEvalGroup: ', results);
+    }
+    })
+  }
+}
+
+// TODO: Refactor to functions
 function saveEvalData(evalData) {
   let positions = evalData.positions.split(" ");
   let danceMoves = evalData.danceMoves.split(" ");
@@ -161,6 +268,8 @@ function saveEvalData(evalData) {
       console.log('Saved Eval3: ', results);
     }
   })
+
+  
 }
 
 
@@ -192,7 +301,7 @@ io.on('connect', (socket) => {
       console.log('evalData');
       console.log(processedEvalData);
       io.sockets.emit('evalData', processedEvalData);
-      //saveEvalData(processedEvalData);
+      saveEvalData(processedEvalData);
     } else if (data.includes("!D|1|")) { //data from dancer 1
       [processedAccelData1Left, processedGyroData1Left, processedAccelData1Right, processedGyroData1Right, dancer1] = parseSensorData(data);
       io.sockets.emit('AccelerometerData1Left', processedAccelData1Left);

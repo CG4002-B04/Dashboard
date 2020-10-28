@@ -1,3 +1,4 @@
+/*
 const mongoose = require('mongoose')
 const sensorReading = require('../models/sensorReading')
 const io = require('socket.io-client')
@@ -30,4 +31,5 @@ socket.on('data', dataPoint => {
     }
   });
 })
+*/
 
