@@ -1,10 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://localhost:27017/";
-
 const uri = "mongodb://localhost:27017/";
 const client = new MongoClient(uri);
 const dances = ["windows", "pushback", "elbowlock", "rocket", "hair", "zigzag", "scarecrow", "shouldershrug"];
-async function run(dancerName) {
+async function moveAccuracyDancer(dancerName) {
   try {
     await client.connect();
     const database = client.db("CG4002_Dashboard");
@@ -25,9 +23,9 @@ async function run(dancerName) {
     console.log(countsCorrect);
     console.log(countsIncorrect);
     console.log(accuracies);
-    //return [countCorrect, countIncorrect]
   } finally {
     await client.close();
   }
 }
-run("Jiajian").catch(console.dir);
+moveAccuracyDancer("Jiajian").catch(console.dir);
+module.exports.moveAccuracyDancer= moveAccuracyDancer;
