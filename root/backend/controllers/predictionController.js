@@ -4,21 +4,23 @@ const Prediction = require('../db/models/prediction')
 exports.move_accuracy_dancer = async function(req, res, next) {
   const dancerName = req.body.dancerName;
   const dances = ["windows", "pushback", "elbowlock", "rocket", "hair", "zigzag", "scarecrow", "shouldershrug"];
-
+  const dancesAccuracies = [["windows", 0.0], ["pushback", 0.0], ["elbowlock", 0.0], ["rocket", 0.0], ["hair", 0.0], 
+                            ["zigzag", 0.0], ["scarecrow", 0.0], ["shouldershrug", 0.0]]
   let accuracies = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
   let correctCounts = [0,0,0,0,0,0,0,0];
   let incorrectCounts = [0,0,0,0,0,0,0,0];
   for (let i = 0; i < 8; i++) {
-    correctCounts[i] = await Prediction.countDocuments({dancer: dancerName, isCorrect: true, action: dances[i]})
-    incorrectCounts[i] = await Prediction.countDocuments({dancer: dancerName, isCorrect: false, action: dances[i]})
+    correctCounts[i] = await Prediction.countDocuments({dancer: dancerName, isCorrect: true, action: dancesAccuracies[i][0]})
+    incorrectCounts[i] = await Prediction.countDocuments({dancer: dancerName, isCorrect: false, action: dancesAccuracies[i][0]})
     if (correctCounts[i] + incorrectCounts[i] !== 0) {
       //console.log(dances[i], "Correct: ", correctCounts[i])
       //console.log(dances[i], "Incorrect: ", incorrectCounts[i])
-      accuracies[i] = correctCounts[i] / (correctCounts[i] + incorrectCounts[i])
+      dancesAccuracies[i][1] = correctCounts[i] / (correctCounts[i] + incorrectCounts[i])
     }
   }
-  console.log(accuracies);
-  res.status(200).send({moveAccuracyDancer: accuracies});
+  console.log(dancesAccuracies);
+  res.status(200).send({moveAccuracyDancer: dancesAccuracies,
+                        ascDances: dancesAccuracies.sort((a, b) => a[1] - b[1])});
 }
 
 exports.accuracy_dancer = async function (req, res, next) {
