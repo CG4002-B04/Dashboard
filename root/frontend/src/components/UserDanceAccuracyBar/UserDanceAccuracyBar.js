@@ -42,17 +42,9 @@ const getDanceAccuracies = async (setDanceAccuracies, dancerName) => {
     const url = new URL('http://localhost:4000/prediction/moveAccuracyDancer')
     const params = {dancerName : dancerName}
     url.search = new URLSearchParams(params).toString()
-    console.log(params)
     const response = await fetch(url)
-    /*
-    const response = await fetch('http://localhost:4000/prediction/moveAccuracyDancer', {
-                                    method: 'GET',
-                                    body: JSON.stringify(data) 
-                                  })
-    */
     const moveAccuraciesDancers = await response.json()
     setDanceAccuracies(moveAccuraciesDancers.accuracies);
-    console.log(moveAccuraciesDancers.accuracies)
   } catch (err) {
     console.error(err.message);
   }
