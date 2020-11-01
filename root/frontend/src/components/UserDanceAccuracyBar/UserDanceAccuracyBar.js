@@ -30,13 +30,6 @@ const options = {
   },
 }
 
-function assignValue(name) {
-  console.log(name);
-  if (name === "JingXuan") return [33, 46, 30, 77, 84, 86, 63, 47]
-  else return [27, 36, 50, 90, 84, 87, 42, 67]
-
-}
-
 const getDanceAccuracies = async (setDanceAccuracies, dancerName) => {
   try {
     const url = new URL('http://localhost:4000/prediction/moveAccuracyDancer')
@@ -74,7 +67,7 @@ const UserDanceAccuracyBar = ({dancerName}) => {
           datasets: [
             {
               label: '% Accuracy',
-              data: assignValue(dancerName),
+              data: danceAccuracies,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
