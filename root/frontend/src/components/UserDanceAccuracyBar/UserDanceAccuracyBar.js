@@ -36,7 +36,27 @@ function assignValue(name) {
   else return [27, 36, 50, 90, 84, 87, 42, 67]
 
 }
+
+const getDanceAccuracies = async (setDanceAccuracies) => {
+  try {
+    const response = await fetch('http://localhost:4000/prediction/moveAccuracyDancer')
+    const moveAccuraciesDancers = await response.json()
+    setDanceAccuracies()
+  } catch (err) {
+    console.error(err.message);
+  }
+}
 const UserDanceAccuracyBar = ({dancerName}) => {
+  const [danceAccuracies, setDanceAccuracies] = useState([0,0,0,0,0,0,0,0])
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+      //
+    }, 5000)
+    
+    return()=>clearInterval(interval)
+  }, [])
   const classes = useStyles();
   const danceAccuracyBarHeight = clsx(classes.paper, classes.fixedDanceAccuracyBarHeight);
   return (
