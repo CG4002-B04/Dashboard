@@ -15,11 +15,12 @@ exports.move_accuracy_dancer = async function(req, res, next) {
     if (correctCounts[i] + incorrectCounts[i] !== 0) {
       //console.log(dances[i], "Correct: ", correctCounts[i])
       //console.log(dances[i], "Incorrect: ", incorrectCounts[i])
-      dancesAccuracies[i][1] = correctCounts[i] / (correctCounts[i] + incorrectCounts[i])
+      dancesAccuracies[i][1] = parseInt((correctCounts[i] / (correctCounts[i] + incorrectCounts[i])) * 100) 
+      accuracies[i] = parseInt((correctCounts[i] / (correctCounts[i] + incorrectCounts[i])) * 100) 
     }
   }
   console.log(dancesAccuracies);
-  res.status(200).send({moveAccuracyDancer: dancesAccuracies,
+  res.status(200).send({accuracies: accuracies,
                         ascDances: dancesAccuracies.sort((a, b) => a[1] - b[1])});
 }
 
