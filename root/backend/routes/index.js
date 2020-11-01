@@ -8,4 +8,7 @@ router.get('/prediction/moveAccuracyDancer', prediction_controller.move_accuracy
 
 router.get('/prediction/accuracyDancer', prediction_controller.accuracy_dancer);
 
+router.get('/prediction/syncDelayDancer', prediction_controller.sync_delay_dancer);
+
+
 module.exports = router;
