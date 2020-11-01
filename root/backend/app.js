@@ -1,9 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const path = require('path')
+//const path = require('path')
 const cookieParser = require('cookie-parser')
-
 const indexRouter = require('./routes/index')
+//const http = require('http')
 
 // Set up mongoose connection
 const mongoose = require('mongoose')
@@ -15,7 +15,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 const app = express();
 
-app.user(express.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: false}))
 app.use(cookieParser());
 
@@ -27,13 +27,15 @@ app.use(function(req, res, next) {
 });
 
 // error handler 
-app.user(function(err, req, res, next) {
+app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = err;
 
   // render the error page
   res.status(err.status || 500);
 })
+
+//app.set('port', port);
 
 module.exports = app;
 
