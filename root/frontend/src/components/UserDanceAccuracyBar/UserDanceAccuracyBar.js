@@ -37,11 +37,22 @@ function assignValue(name) {
 
 }
 
-const getDanceAccuracies = async (setDanceAccuracies) => {
+const getDanceAccuracies = async (setDanceAccuracies, dancerName) => {
   try {
-    const response = await fetch('http://localhost:4000/prediction/moveAccuracyDancer')
+    const url = new URL('http://localhost:4000/prediction/moveAccuracyDancer')
+    const params = {dancerName : dancerName}
+    url.search = new URLSearchParams(params).toString()
+    console.log(params)
+    const response = await fetch(url)
+    /*
+    const response = await fetch('http://localhost:4000/prediction/moveAccuracyDancer', {
+                                    method: 'GET',
+                                    body: JSON.stringify(data) 
+                                  })
+    */
     const moveAccuraciesDancers = await response.json()
-    setDanceAccuracies()
+    setDanceAccuracies(moveAccuraciesDancers.accuracies);
+    console.log(moveAccuraciesDancers.accuracies)
   } catch (err) {
     console.error(err.message);
   }
@@ -50,9 +61,10 @@ const UserDanceAccuracyBar = ({dancerName}) => {
   const [danceAccuracies, setDanceAccuracies] = useState([0,0,0,0,0,0,0,0])
 
   useEffect(() => {
+    getDanceAccuracies(setDanceAccuracies, dancerName)
 
     const interval = setInterval(() => {
-      //
+      getDanceAccuracies(setDanceAccuracies, dancerName)
     }, 5000)
     
     return()=>clearInterval(interval)

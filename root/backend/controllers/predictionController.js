@@ -2,8 +2,8 @@ const Prediction = require('../db/models/prediction')
 
 //The accuracy for every moves for a dancer
 exports.move_accuracy_dancer = async function(req, res, next) {
-  const dancerName = req.body.dancerName;
-  const dances = ["windows", "pushback", "elbowlock", "rocket", "hair", "zigzag", "scarecrow", "shouldershrug"];
+  const dancerName = req.query.dancerName;
+  //const dances = ["windows", "pushback", "elbowlock", "rocket", "hair", "zigzag", "scarecrow", "shouldershrug"];
   const dancesAccuracies = [["windows", 0.0], ["pushback", 0.0], ["elbowlock", 0.0], ["rocket", 0.0], ["hair", 0.0], 
                             ["zigzag", 0.0], ["scarecrow", 0.0], ["shouldershrug", 0.0]]
   let accuracies = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
