@@ -61,26 +61,49 @@ function UserStats({name}) {
                 Best Moves
               </Typography>
               <div className={classes.listPaper}>
-                <List>
-                  <ListItem>
-                    <ListItemText
-                      primary="Zigzag"
-                    />
-                  </ListItem>
-                  <Divider />
-                  <ListItem>
-                    <ListItemText
-                      primary="Rocket"
-                    />
-                  </ListItem>
-                  <Divider />
-                  <ListItem>
-                    <ListItemText
-                      primary="Scarecrow"
-                    />
-                  </ListItem>
-                  <Divider />
-                </List>
+                {name === "JingXuan" ? 
+                  <List>
+                      <ListItem>
+                        <ListItemText
+                          primary= "Zigzag" 
+                        />
+                      </ListItem>
+                      <Divider />
+                      <ListItem>
+                        <ListItemText
+                          primary="Hair"
+                        />
+                      </ListItem>
+                      <Divider />
+                      <ListItem>
+                        <ListItemText
+                          primary="Rocket"
+                        />
+                      </ListItem>
+                      <Divider />
+                  </List>
+                  :
+                  <List>
+                      <ListItem>
+                        <ListItemText
+                          primary= "Rocket" 
+                        />
+                      </ListItem>
+                      <Divider />
+                      <ListItem>
+                        <ListItemText
+                          primary="Zigzag"
+                        />
+                      </ListItem>
+                      <Divider />
+                      <ListItem>
+                        <ListItemText
+                          primary="Hair"
+                        />
+                      </ListItem>
+                      <Divider />
+                  </List>
+                }
               </div>
             </Grid>
             <Grid item xs={6}>
@@ -88,27 +111,49 @@ function UserStats({name}) {
                 Confusing Moves 
               </Typography>
               <div className={classes.listPaper}>
-                <List>
-                  <ListItem>
-                    <ListItemText
-                      primary="Hair"
-                    />
-                  </ListItem>
-                  <Divider />
-                  <ListItem>
-                    <ListItemText
-                      primary="Rocket"
-                    />
-                  </ListItem>
-                  <Divider />
-                  <ListItem>
-                    <ListItemText
-                      primary="ShoulderShrug"
-                    />
-                  </ListItem>
-                  <Divider />
-                  
-                </List>
+                {name === "JingXuan" ? 
+                  <List>
+                      <ListItem>
+                        <ListItemText
+                          primary= "Elbow Lock" 
+                        />
+                      </ListItem>
+                      <Divider />
+                      <ListItem>
+                        <ListItemText
+                          primary="Windows"
+                        />
+                      </ListItem>
+                      <Divider />
+                      <ListItem>
+                        <ListItemText
+                          primary="Pushback"
+                        />
+                      </ListItem>
+                      <Divider />
+                      </List>
+                      :
+                      <List>
+                      <ListItem>
+                        <ListItemText
+                          primary= "Windows" 
+                        />
+                      </ListItem>
+                      <Divider />
+                      <ListItem>
+                        <ListItemText
+                          primary= "Pushback"
+                        />
+                      </ListItem>
+                      <Divider />
+                      <ListItem>
+                        <ListItemText
+                          primary= "Scarecrow"
+                        />
+                      </ListItem>
+                      <Divider />
+                  </List>
+                }
               </div> 
             </Grid>
             <Grid item xs={3}>
@@ -118,7 +163,7 @@ function UserStats({name}) {
             </Grid>
             <Grid item xs={3}>
               <Typography variant="h5" className={classes.title} gutterBottom>
-                20%
+                {name === "JingXuan" ? '63%' : '74%' }
               </Typography>
             </Grid>
             <Grid item xs={3}>
@@ -128,13 +173,13 @@ function UserStats({name}) {
             </Grid>
             <Grid item xs={3}>
               <Typography variant="h5" className={classes.title} gutterBottom>
-                0.23 
+                {name === "JingXuan" ? '2.73' : '3.26' }
               </Typography>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <UserDanceAccuracyBar />
+          <UserDanceAccuracyBar dancerName={name}/>
         </Grid>
       </Grid>
     </Paper>

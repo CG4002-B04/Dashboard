@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
 
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
@@ -31,10 +30,15 @@ const options = {
   },
 }
 
-const UserDanceAccuracyBar = () => {
+function assignValue(name) {
+  console.log(name);
+  if (name === "JingXuan") return [33, 46, 30, 77, 84, 86, 63, 47]
+  else return [27, 36, 50, 90, 84, 87, 42, 67]
+
+}
+const UserDanceAccuracyBar = ({dancerName}) => {
   const classes = useStyles();
   const danceAccuracyBarHeight = clsx(classes.paper, classes.fixedDanceAccuracyBarHeight);
-
   return (
     <Paper className={danceAccuracyBarHeight}>
       <div className='header'>
@@ -46,9 +50,7 @@ const UserDanceAccuracyBar = () => {
           datasets: [
             {
               label: '% Accuracy',
-              data: [10, 20, 30, 
-                     40, 50, 60, 
-                     70, 80],
+              data: assignValue(dancerName),
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

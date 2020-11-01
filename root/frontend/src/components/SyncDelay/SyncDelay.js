@@ -45,7 +45,7 @@ export default function SyncDelay() {
       </Typography>
       <Box pt={5}>
       </Box>
-      {parseFloat(syncDelay) < 0.1 ? 
+      {parseFloat(syncDelay) < 0.6 ? 
         <Typography component="h2" variant="h4" color="green">
           Keep It Up!
         </Typography> 
