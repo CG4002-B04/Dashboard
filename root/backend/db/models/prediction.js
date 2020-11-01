@@ -29,4 +29,4 @@ const predictionSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('prediction', predictionSchema)
+module.exports = mongoose.model('prediction', predictionSchema, "predictions")

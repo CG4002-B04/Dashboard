@@ -7,6 +7,7 @@ const { body, validationResult } = require('express-validator')
 exports.move_accuracy_dancer = function(req, res, next) {
   const dancerName = req.body.dancerName;
   const dances = ["windows", "pushback", "elbowlock", "rocket", "hair", "zigzag", "scarecrow", "shouldershrug"];
+  console.log(dancerName)
 
   let accuracies = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
   //let correctCounts = [0,0,0,0,0,0,0,0];
@@ -18,6 +19,13 @@ exports.move_accuracy_dancer = function(req, res, next) {
       }
   })
   */
+ /*
+  Prediction.find().exec(function (err, result) {
+    if (err) { return next (err); }
+    console.log('finding predictions')
+    console.log(result);
+  })
+  */
   let correctCount = 0;
   let incorrectCount = 0;
   for (let i = 0; i < 8; i++) {
@@ -25,17 +33,20 @@ exports.move_accuracy_dancer = function(req, res, next) {
     Prediction.countDocuments({dancer: dancerName, isCorrect: true, action: dances[i]})
                                .exec(function (err, count) {
                                  if (err) { return next (err); }
-                                 correctCounts[i] = count
+                                 correctCount = count 
                                });
-    Prediction.countDocuments({dancer: dancerName, isCorrect: false, action: dancers[i]})
+    Prediction.countDocuments({dancer: dancerName, isCorrect: false, action: dances[i]})
                                .exec(function (err, count) {
                                  if (err) { return next(err);}
-                                 incorrectCounts[i] = count
+                                 incorrectCount = count
                                })
+    console.log(dances[i], 'correct: ', correctCount)
+    console.log(dances[i], 'incorrect: ', incorrectCount)
     if (correctCount + incorrectCount !== 0) {
+      console.log('hello')
       accuracies[i] = correctCount / (correctCount + incorrectCount)
     }
   }
-  console.log(accuracies)
-  res.send(accuracies);
+  console.log(accuracies);
+  res.send();
 }
