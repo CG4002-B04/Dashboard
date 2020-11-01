@@ -1,19 +1,12 @@
-import React from 'react';
+import React, { useEffect , useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import { Bar } from 'react-chartjs-2';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
 import UserCard from "../UserCard/UserCard"
@@ -37,17 +30,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
+const getDances = async (setBestMoves, setWorstMoves, dancerName) => {
+  try {
+    const url = new URL('http://localhost:4000/prediction/moveAccuracyDancer')
+    const params = {dancerName : dancerName}
+    url.search = new URLSearchParams(params).toString()
+    const response = await fetch(url)
+    const moveAccuraciesDancers = await response.json()
+    const ascDances = moveAccuraciesDancers.ascDances
+    setBestMoves([ascDances[7][0], ascDances[6][0], ascDances[5][0]])
+    setWorstMoves([ascDances[0][0], ascDances[1][0], ascDances[2][0]])
+  } catch (err) {
+    console.error(err.message);
+  }
 }
 
 function UserStats({name}) {
   const classes = useStyles();
+  const [bestMoves, setBestMoves] = useState(['','',''])
+  const [worstMoves, setWorstMoves] = useState(['','',''])
   const userStatsHeight = clsx(classes.paper, classes.fixedUserStatsHeight)
+
+  useEffect(() => {
+    getDances(setBestMoves, setWorstMoves, name)
+    const interval = setInterval(() => {
+      getDances(setBestMoves, setWorstMoves, name)
+    }, 10000)
+
+    return () => clearInterval(interval)
+  })
   return(
     <Paper className={userStatsHeight}>
       <Grid container spacing={4}>
@@ -61,49 +72,26 @@ function UserStats({name}) {
                 Best Moves
               </Typography>
               <div className={classes.listPaper}>
-                {name === "JingXuan" ? 
-                  <List>
-                      <ListItem>
-                        <ListItemText
-                          primary= "Zigzag" 
-                        />
-                      </ListItem>
-                      <Divider />
-                      <ListItem>
-                        <ListItemText
-                          primary="Hair"
-                        />
-                      </ListItem>
-                      <Divider />
-                      <ListItem>
-                        <ListItemText
-                          primary="Rocket"
-                        />
-                      </ListItem>
-                      <Divider />
-                  </List>
-                  :
-                  <List>
-                      <ListItem>
-                        <ListItemText
-                          primary= "Rocket" 
-                        />
-                      </ListItem>
-                      <Divider />
-                      <ListItem>
-                        <ListItemText
-                          primary="Zigzag"
-                        />
-                      </ListItem>
-                      <Divider />
-                      <ListItem>
-                        <ListItemText
-                          primary="Hair"
-                        />
-                      </ListItem>
-                      <Divider />
-                  </List>
-                }
+                <List>
+                    <ListItem>
+                      <ListItemText
+                        primary= "Zigzag" 
+                      />
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                      <ListItemText
+                        primary="Hair"
+                      />
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                      <ListItemText
+                        primary="Rocket"
+                      />
+                    </ListItem>
+                    <Divider />
+                </List>
               </div>
             </Grid>
             <Grid item xs={6}>
@@ -111,49 +99,26 @@ function UserStats({name}) {
                 Confusing Moves 
               </Typography>
               <div className={classes.listPaper}>
-                {name === "JingXuan" ? 
-                  <List>
-                      <ListItem>
-                        <ListItemText
-                          primary= "Elbow Lock" 
-                        />
-                      </ListItem>
-                      <Divider />
-                      <ListItem>
-                        <ListItemText
-                          primary="Windows"
-                        />
-                      </ListItem>
-                      <Divider />
-                      <ListItem>
-                        <ListItemText
-                          primary="Pushback"
-                        />
-                      </ListItem>
-                      <Divider />
-                      </List>
-                      :
-                      <List>
-                      <ListItem>
-                        <ListItemText
-                          primary= "Windows" 
-                        />
-                      </ListItem>
-                      <Divider />
-                      <ListItem>
-                        <ListItemText
-                          primary= "Pushback"
-                        />
-                      </ListItem>
-                      <Divider />
-                      <ListItem>
-                        <ListItemText
-                          primary= "Scarecrow"
-                        />
-                      </ListItem>
-                      <Divider />
-                  </List>
-                }
+                <List>
+                  <ListItem>
+                    <ListItemText
+                      primary= "Elbow Lock" 
+                    />
+                  </ListItem>
+                  <Divider />
+                  <ListItem>
+                    <ListItemText
+                      primary="Windows"
+                    />
+                  </ListItem>
+                  <Divider />
+                  <ListItem>
+                    <ListItemText
+                      primary="Pushback"
+                    />
+                  </ListItem>
+                  <Divider />
+                </List>
               </div> 
             </Grid>
             <Grid item xs={3}>
