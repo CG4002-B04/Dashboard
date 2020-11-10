@@ -9,8 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
-import UserCard from "../UserCard/UserCard"
-import UserDanceAccuracyBar from "../UserDanceAccuracyBar/UserDanceAccuracyBar"
+import OverallDanceAccuracyBar from '../OverallDanceAccuracyBar/OverallDanceAccuracyBar';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -154,6 +153,7 @@ function OverallStats() {
           </Grid>
         </Grid>
         <Grid item xs={12}>
+          <OverallDanceAccuracyBar />
         </Grid>
       </Grid>
     </Paper>
