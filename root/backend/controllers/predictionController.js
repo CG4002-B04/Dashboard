@@ -39,6 +39,7 @@ exports.accuracy_dancer = async function (req, res, next) {
 
 // need to convert from string to float
 exports.sync_delay_dancer = async function (req, res, next) {
+  console.log(req.body)
   const dancerName = req.body.dancerName;
   let avg_delay = await Prediction.aggregate([
                         {
@@ -55,5 +56,6 @@ exports.sync_delay_dancer = async function (req, res, next) {
                           }
                         }
                         ]) 
-  res.status(200).send({accuracyDancer: avg_delay});
+  console.log(avg_delay)
+  res.status(200).send({syncDelay: avg_delay});
 }
