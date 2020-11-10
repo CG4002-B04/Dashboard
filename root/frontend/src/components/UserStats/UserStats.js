@@ -45,6 +45,20 @@ const getDances = async (setBestMoves, setWorstMoves, dancerName) => {
   }
 }
 
+const getAccuracy = async (setAccuracy, dancerName) => {
+  try {
+    const url = new URL('http://localhost:4000/prediction/accuracyDancer')
+    const params = {dancerName : dancerName}
+    url.search = new URLSearchParams(params).toString()
+    const response = await fetch(url)
+    const resAccuracy = await response.json()
+    const accuracy = resAccuracy.accuracyDancer;
+    console.log("accuracy", accuracy)
+    setAccuracy((accuracy * 100))
+  } catch (err) {
+    console.error(err.message);
+  }
+}
 
 function UserStats({name}) {
   const classes = useStyles();
@@ -56,6 +70,7 @@ function UserStats({name}) {
   //TODO: Make sure that it doesn't make too many requests (check double renders etc)
   useEffect(() => {
     getDances(setBestMoves, setWorstMoves, name)
+    getAccuracy(setAccuracy, name)
     const interval = setInterval(() => {
       getDances(setBestMoves, setWorstMoves, name)
     }, 10000)
@@ -116,7 +131,7 @@ function UserStats({name}) {
             </Grid>
             <Grid item xs={3}>
               <Typography variant="h5" className={classes.title} gutterBottom>
-                {name === "JingXuan" ? '63%' : '74%' }
+                {accuracy.toFixed(0)}%
               </Typography>
             </Grid>
             <Grid item xs={3}>
