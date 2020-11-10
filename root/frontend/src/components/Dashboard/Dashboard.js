@@ -30,6 +30,7 @@ import SyncDelay from '../SyncDelay/SyncDelay'
 import Consensus from '../Consensus/Consensus'
 import DanceAccuracyBar from '../DanceAccuracyBar/DanceAccuracyBar';
 import UserStats from '../UserStats/UserStats'
+import OverallStats from '../OverallStats/OverallStats'
 
 const drawerWidth = 240;
 
@@ -220,15 +221,21 @@ function Dashboard() {
                   <Grid item xs={12}>
                     <UserStats name="Ivan" />
                   </Grid>
-
-
-
                 </Grid>
                 <Box pt={4}>
                 </Box>
               </Container>
             </Route>
             <Route path="/stats">
+              <Container maxWidth="lg" className={classes.container}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <OverallStats />
+                  </Grid>
+                </Grid>
+                <Box pt={4}>
+                </Box>
+              </Container>
             </Route>
           </Switch>
           

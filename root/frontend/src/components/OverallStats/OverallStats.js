@@ -77,11 +77,11 @@ function OverallStats() {
   const userStatsHeight = clsx(classes.paper, classes.fixedUserStatsHeight)
   //TODO: Make sure that it doesn't make too many requests (check double renders etc)
   useEffect(() => {
-    getDances(setBestMoves, setWorstMoves, name)
-    getSyncDelay(setSyncDelay, name)
-    getAccuracy(setAccuracy, name)
+    getDances(setBestMoves, setWorstMoves)
+    getSyncDelay(setSyncDelay)
+    getAccuracy(setAccuracy)
     const interval = setInterval(() => {
-      getDances(setBestMoves, setWorstMoves, name)
+      getDances(setBestMoves, setWorstMoves)
     }, 10000)
 
     return () => clearInterval(interval)
@@ -89,10 +89,8 @@ function OverallStats() {
   return(
     <Paper className={userStatsHeight}>
       <Grid container spacing={4}>
-        <Grid item xs={4}>
-          <UserCard dancerName={name} />
-        </Grid>
-        <Grid item xs={7}>
+
+        <Grid item xs={12}>
           <Grid container spacing={3}>
             <Grid item xs={6}>
               <Typography variant="h6" className={classes.title} gutterBottom>
@@ -156,7 +154,6 @@ function OverallStats() {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <UserDanceAccuracyBar dancerName={name}/>
         </Grid>
       </Grid>
     </Paper>
