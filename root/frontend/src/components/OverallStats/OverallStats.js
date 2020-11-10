@@ -30,14 +30,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getDances = async (setBestMoves, setWorstMoves, dancerName) => {
+const getDances = async (setBestMoves, setWorstMoves) => {
   try {
-    const url = new URL('http://localhost:4000/prediction/moveAccuracyDancer')
-    const params = {dancerName : dancerName}
-    url.search = new URLSearchParams(params).toString()
+    const url = new URL('http://localhost:4000/prediction/moveAccuracyOverall')
     const response = await fetch(url)
-    const moveAccuraciesDancers = await response.json()
-    const ascDances = moveAccuraciesDancers.ascDances
+    const moveAccuracies= await response.json()
+    const ascDances = moveAccuracies.ascDances
     setBestMoves([ascDances[7][0], ascDances[6][0], ascDances[5][0]])
     setWorstMoves([ascDances[0][0], ascDances[1][0], ascDances[2][0]])
   } catch (err) {
@@ -45,25 +43,21 @@ const getDances = async (setBestMoves, setWorstMoves, dancerName) => {
   }
 }
 
-const getAccuracy = async (setAccuracy, dancerName) => {
+const getAccuracy = async (setAccuracy) => {
   try {
-    const url = new URL('http://localhost:4000/prediction/accuracyDancer')
-    const params = {dancerName : dancerName}
-    url.search = new URLSearchParams(params).toString()
+    const url = new URL('http://localhost:4000/prediction/accuracyOverall')
     const response = await fetch(url)
     const resAccuracy = await response.json()
-    const accuracy = resAccuracy.accuracyDancer;
+    const accuracy = resAccuracy.accuracy;
     setAccuracy((accuracy * 100))
   } catch (err) {
     console.error(err.message);
   }
 }
 
-const getSyncDelay = async (setSyncDelay, dancerName) => {
+const getSyncDelay = async (setSyncDelay) => {
   try {
-    const url = new URL('http://localhost:4000/prediction/syncDelayDancer')
-    const params = {dancerName : dancerName}
-    url.search = new URLSearchParams(params).toString()
+    const url = new URL('http://localhost:4000/prediction/syncDelayOverall')
     const response = await fetch(url)
     const resSyncDelay = await response.json()
     const syncDelay = resSyncDelay.syncDelay;

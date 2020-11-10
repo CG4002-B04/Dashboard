@@ -16,5 +16,4 @@ router.get('/prediction/accuracyOverall', prediction_controller.accuracy_overall
 
 router.get('/prediction/syncDelayOverall', prediction_controller.sync_delay_overall);
 
-
 module.exports = router;
