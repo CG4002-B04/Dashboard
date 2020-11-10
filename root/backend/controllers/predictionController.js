@@ -56,6 +56,5 @@ exports.sync_delay_dancer = async function (req, res, next) {
                           }
                         }
                         ]) 
-  console.log(avg_delay)
-  res.status(200).send({syncDelay: avg_delay});
+  res.status(200).send({syncDelay: avg_delay[0].avgDelay});
 }

@@ -59,7 +59,7 @@ const getAccuracy = async (setAccuracy, dancerName) => {
   }
 }
 
-const getSyncDelay = async (setSyncdelay, dancerName) => {
+const getSyncDelay = async (setSyncDelay, dancerName) => {
   try {
     const url = new URL('http://localhost:4000/prediction/syncDelayDancer')
     const params = {dancerName : dancerName}
@@ -68,6 +68,7 @@ const getSyncDelay = async (setSyncdelay, dancerName) => {
     const resSyncDelay = await response.json()
     const syncDelay = resSyncDelay.syncDelay;
     console.log("sync delay", syncDelay)
+    setSyncDelay(syncDelay);
   } catch (err) {
     console.error(err.message)
   }
@@ -84,14 +85,12 @@ function UserStats({name}) {
   useEffect(() => {
     getDances(setBestMoves, setWorstMoves, name)
     getSyncDelay(setSyncDelay, name)
-    /*
     getAccuracy(setAccuracy, name)
     const interval = setInterval(() => {
       getDances(setBestMoves, setWorstMoves, name)
     }, 10000)
 
     return () => clearInterval(interval)
-    */
   }, [])
   return(
     <Paper className={userStatsHeight}>
@@ -157,7 +156,7 @@ function UserStats({name}) {
             </Grid>
             <Grid item xs={3}>
               <Typography variant="h5" className={classes.title} gutterBottom>
-                {name === "JingXuan" ? '2.73' : '3.26' }
+                {syncDelay.toFixed(2)}
               </Typography>
             </Grid>
           </Grid>
