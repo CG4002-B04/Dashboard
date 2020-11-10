@@ -14,7 +14,7 @@ const evaluationGroupSchema = new mongoose.Schema({
     // enum: ['windows', 'pushback', 'rocket', 'elbow_lock', 'hair', 'scarecrow', 'zigzag', 'shouldershrug']
   },
   syncdelay: {
-    type: String,
+    type: Number,
     required: true
   },
   timestamp: {

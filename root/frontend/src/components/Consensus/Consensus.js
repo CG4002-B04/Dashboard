@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
-const ENDPOINT = 'http://localhost:5000';
+const ENDPOINT = 'http://localhost:5001';
 let socket = io(ENDPOINT);
 
 const useStyles = makeStyles((theme) => ({

@@ -211,6 +211,18 @@ function Dashboard() {
                   <Grid item xs={12}>
                     <UserStats name="Hans" />
                   </Grid>
+                  <Grid item xs={12}>
+                    <UserStats name="JiaJian" />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <UserStats name="Shaun" />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <UserStats name="Ivan" />
+                  </Grid>
+
+
+
                 </Grid>
                 <Box pt={4}>
                 </Box>

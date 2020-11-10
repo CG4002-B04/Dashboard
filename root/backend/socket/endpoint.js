@@ -3,6 +3,8 @@ var net = require('net');
 
 const ENDPOINT = 'http://localhost:5000';
 let socketClient = io(ENDPOINT);
+const ENDPOINT_EVAL = 'http://localhost:5001'
+let socketClientEval = io(ENDPOINT_EVAL);
   
 // creates the server
 var server = net.createServer();
@@ -65,6 +67,12 @@ server.on('connection',function(socket){
         console.log(error);
       }
     });
+
+    socketClientEval.emit('endpointData', data, (error) => {
+      if (error) {
+        console.log(error);
+      }
+    })
     
     //echo data
     var is_kernel_buffer_full = socket.write(data);

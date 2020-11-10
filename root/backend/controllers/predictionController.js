@@ -25,13 +25,14 @@ exports.move_accuracy_dancer = async function(req, res, next) {
 }
 
 exports.accuracy_dancer = async function (req, res, next) {
-  const dancerName = req.body.dancerName;
+  const dancerName = req.query.dancerName;
   let accuracy = 0.0
   correctCount = await Prediction.countDocuments({dancer: dancerName, isCorrect: true});
   incorrectCount = await Prediction.countDocuments({dancer: dancerName, isCorrect: false});
   if (correctCount + incorrectCount !== 0) {
     accuracy = correctCount / (incorrectCount + correctCount);
   }
+  console.log(dancerName, "accuracy", accuracy);
   //cannot send number
   res.status(200).send({accuracyDancer: accuracy});
 }

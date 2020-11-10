@@ -45,12 +45,15 @@ const getDances = async (setBestMoves, setWorstMoves, dancerName) => {
   }
 }
 
+
 function UserStats({name}) {
   const classes = useStyles();
   const [bestMoves, setBestMoves] = useState(['','',''])
   const [worstMoves, setWorstMoves] = useState(['','',''])
+  const [accuracy, setAccuracy] = useState(0);
+  const [syncDelay, setSyncDelay] = useState(0.0);
   const userStatsHeight = clsx(classes.paper, classes.fixedUserStatsHeight)
-
+  //TODO: Make sure that it doesn't make too many requests (check double renders etc)
   useEffect(() => {
     getDances(setBestMoves, setWorstMoves, name)
     const interval = setInterval(() => {
@@ -58,7 +61,7 @@ function UserStats({name}) {
     }, 10000)
 
     return () => clearInterval(interval)
-  })
+  }, [])
   return(
     <Paper className={userStatsHeight}>
       <Grid container spacing={4}>
@@ -73,24 +76,17 @@ function UserStats({name}) {
               </Typography>
               <div className={classes.listPaper}>
                 <List>
-                    <ListItem>
-                      <ListItemText
-                        primary= "Zigzag" 
-                      />
-                    </ListItem>
-                    <Divider />
-                    <ListItem>
-                      <ListItemText
-                        primary="Hair"
-                      />
-                    </ListItem>
-                    <Divider />
-                    <ListItem>
-                      <ListItemText
-                        primary="Rocket"
-                      />
-                    </ListItem>
-                    <Divider />
+                    {bestMoves.map(move => (
+                      <div>
+                        <ListItem>
+                        <ListItemText
+                          primary={move}
+                          />
+                        </ListItem>
+                        <Divider />
+                      </div>
+                      
+                    ))}
                 </List>
               </div>
             </Grid>
@@ -100,24 +96,16 @@ function UserStats({name}) {
               </Typography>
               <div className={classes.listPaper}>
                 <List>
-                  <ListItem>
-                    <ListItemText
-                      primary= "Elbow Lock" 
-                    />
-                  </ListItem>
-                  <Divider />
-                  <ListItem>
-                    <ListItemText
-                      primary="Windows"
-                    />
-                  </ListItem>
-                  <Divider />
-                  <ListItem>
-                    <ListItemText
-                      primary="Pushback"
-                    />
-                  </ListItem>
-                  <Divider />
+                    {worstMoves.map(move => (
+                      <div>
+                        <ListItem>
+                        <ListItemText
+                          primary={move}
+                          />
+                        </ListItem>
+                        <Divider />
+                      </div>
+                    ))}
                 </List>
               </div> 
             </Grid>

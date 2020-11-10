@@ -53,7 +53,7 @@ function parseEvalData(evalData) {
           positions: splitData[0], // e.g. "1 2 3"
           danceMoves: splitData[1], // e.g. scarecrow hair zigzag
           confidence: splitData[2], // e.g. "0.9 0.8 0.85"
-          syncDelay: splitData[3], // e.g. 0.1
+          syncDelay: parseFloat(splitData[3]), // e.g. 0.1
           dancers: splitData[4] // e.g. Jack Jill John
         }
 }
@@ -220,7 +220,7 @@ function saveEvalData(evalData) {
     position: positions[0],
     action: danceMoves[0],
     confidence: confidences[0],
-    syncdelay: evalData.syncDelay,
+    syncdelay: parseFloat(evalData.syncDelay),
     dancer: dancers[0],
     isCorrect: checkDanceMoveCorrect(danceMoves[0], danceMoves)
   });
@@ -237,7 +237,7 @@ function saveEvalData(evalData) {
     position: positions[1],
     action: danceMoves[1],
     confidence: confidences[1],
-    syncdelay: evalData.syncDelay,
+    syncdelay: parseFloat(evalData.syncDelay),
     dancer: dancers[1],
     isCorrect: checkDanceMoveCorrect(danceMoves[1], danceMoves)
   });
@@ -254,7 +254,7 @@ function saveEvalData(evalData) {
     position: positions[2],
     action: danceMoves[2],
     confidence: confidences[2],
-    syncdelay: evalData.syncDelay,
+    syncdelay: parseFloat(evalData.syncDelay),
     dancer: dancers[2],
     isCorrect: checkDanceMoveCorrect(danceMoves[2], danceMoves)
   });
@@ -267,7 +267,7 @@ function saveEvalData(evalData) {
     }
   })
 
-  saveEvalGroup(danceMoves, evalData.syncDelay);
+  saveEvalGroup(danceMoves, parseFloat(evalData.syncDelay));
 
   
 }
