@@ -1,12 +1,10 @@
 const mongoose = require('mongoose')
 
-// Accuracy, Top confusing moves, Best moves, Graph of all the moves, Average Sync Delay, Confidence 
-// Differentiate between NoMatch and not enough moves
 const predictionSchema = new mongoose.Schema({
   action: {
     type: String,
     required: true
-    // enum: ['windows', 'pushback', 'rocket', 'elbow_lock', 'hair', 'scarecrow', 'zigzag', 'shouldershrug']
+    
   },
   syncdelay: {
     type: Number,
