@@ -36,11 +36,7 @@ export default function Consensus() {
       if (danceMoves[0] === danceMoves[1] && danceMoves[0] === danceMoves[2]) {
         succSamples++;
       }
-      // must have prev so that you don't always refer to initial value always due to closure
       setConsensus(prev => succSamples / numOfSamples);
-      //console.log('Succ: ' + succSamples);
-      //console.log('Samples: ' + numOfSamples);
-      //console.log('Consensus: ' + consensus);
     });
   }, []);
 

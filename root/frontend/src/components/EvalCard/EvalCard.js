@@ -27,6 +27,8 @@ const useStyles = makeStyles({
   },
 });
 
+
+// Display the real time data for the user
 export default function EvalCard({dancerName, position, danceMove, confidenceScore}) {
   const classes = useStyles();
 
