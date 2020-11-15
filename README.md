@@ -20,6 +20,15 @@
 * Go to `/backend/db/init` and run `node dbInit.js`
 * When the sensor data and evaluation data are received, it automatically updates the database.
 
+## To simulate streaming 
+* Go to `root/backend/`
+* In a separate terminal, run `node evalServer.js` to start the evaluation server 
+* In a separate terminal, run `node sensorServer.js` to start the sensor server 
+* In a separate terminal, run `node index.js` to start the HTTP REST endpoints
+* Go to `root/backend/socket`
+* In a separate terminal, run `node endpoint.js` to start the simulated endpoint to receive data
+* In a separate terminal, run `node dancerClient.js` to initialize dancers in the frontend
+* In a separate terminal, run `node sensorClient.js` to simulate streaming of data
 
 ## Brief overview of file structure
 * Under `/root`, the file is divided into `frontend` and `backend`
