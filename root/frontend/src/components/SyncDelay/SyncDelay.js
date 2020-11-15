@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Real time display of the sync delay of the dancers
 export default function SyncDelay() {
   const classes = useStyles();
   const [syncDelay, setSyncDelay] = useState('0.0');
@@ -28,6 +29,7 @@ export default function SyncDelay() {
 
   useEffect(() => {
     socket.on('evalData', dataPoint => {
+      //setSyncD(dataPoint.syncDelay)/1000).toFixed(2));
       setSyncDelay(dataPoint.syncDelay);
     });
   }, [])
@@ -41,7 +43,7 @@ export default function SyncDelay() {
       <Box pt={10}>
       </Box>
       <Typography component="h1" variant="h1" color="primary"  gutterBottom>
-        {syncDelay.substring(0,4)}
+        {syncDelay}
       </Typography>
       <Box pt={5}>
       </Box>

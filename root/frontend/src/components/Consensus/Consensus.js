@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// The real time consensus achieved by the dancers
 export default function Consensus() {
   const classes = useStyles();
   let numOfSamples = 0;

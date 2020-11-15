@@ -27,6 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
+// Show the profile picture and the name of the dancer
 export default function UserCard ({dancerName}) {
   const classes = useStyles();
 

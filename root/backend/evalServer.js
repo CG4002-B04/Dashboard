@@ -17,6 +17,7 @@ const Prediction = prediction;
 
 app.use(cors());
 
+// Parse the dancer data to its id and the name
 function parseDancerData(dancerData) {
   let splitDancerData = dancerData.split('|');
   return {
@@ -24,7 +25,8 @@ function parseDancerData(dancerData) {
           name: splitDancerData[2]
         }
 }
-//sync delay is float
+
+// Store the evaluation group data to MongoDB
 function saveEvalGroup (danceMoves, syncDelay) {
   if (danceMoves[0] === danceMoves[1] && danceMoves[1] === danceMoves[2]) {      
     const eval = new evaluationGroup({
@@ -146,6 +148,7 @@ function checkDanceMoveCorrect(move, danceMoves) {
   }
 }
 
+// Saving the evaluation data to MongoDB
 function saveEvalData(evalData) {
   let positions = evalData.positions.split(" ");
   let danceMoves = evalData.danceMoves.split(" ");
@@ -206,6 +209,7 @@ function saveEvalData(evalData) {
   saveEvalGroup(danceMoves, evalData.syncDelay);  
 }
 
+// Parsing the eval data
 function parseEvalData(evalData) {
   let splitData = evalData.split('|');
   splitData[0] = splitData[0].substring(1);
@@ -218,6 +222,7 @@ function parseEvalData(evalData) {
         }
 }
 
+// Main logic that receives data from the dashboardserver, parse it and send it to the frontend
 io.on('connect', (socket) => {
   console.log(`Socket ${socket.id} has just been connected`);
   

@@ -2,9 +2,9 @@ var net = require('net');
 const readline = require('readline');
 const fs = require('fs');
 
-const filepath = '../db/csv/rocket.txt'
+const filepath = '../db/csv/raw_data.txt'
 
-
+// Generate simulated sensor data
 // creating a custom socket client and connecting it....
 var client  = new net.Socket();
 client.connect({
@@ -38,7 +38,7 @@ async function processLineByLine() {
 
   for await (const line of rl) {
     client.write(line);
-    await sleep(500);
+    await sleep(100);
   }
 }
 

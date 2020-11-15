@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Get the best moves and the worst moves from the endpoint and render it
 const getDances = async (setBestMoves, setWorstMoves, dancerName) => {
   try {
     const url = new URL('http://localhost:4000/prediction/moveAccuracyDancer')
@@ -45,6 +46,7 @@ const getDances = async (setBestMoves, setWorstMoves, dancerName) => {
   }
 }
 
+// Get the average accuracy for the dancer from the endpoint and render it
 const getAccuracy = async (setAccuracy, dancerName) => {
   try {
     const url = new URL('http://localhost:4000/prediction/accuracyDancer')
@@ -59,6 +61,7 @@ const getAccuracy = async (setAccuracy, dancerName) => {
   }
 }
 
+// Get the sync delay for the dancer and render it
 const getSyncDelay = async (setSyncDelay, dancerName) => {
   try {
     const url = new URL('http://localhost:4000/prediction/syncDelayDancer')
@@ -74,6 +77,7 @@ const getSyncDelay = async (setSyncDelay, dancerName) => {
   }
 }
 
+// Component the displays the statistics relevant for a dancer
 function UserStats({name}) {
   const classes = useStyles();
   const [bestMoves, setBestMoves] = useState(['','',''])
@@ -81,7 +85,6 @@ function UserStats({name}) {
   const [accuracy, setAccuracy] = useState(0);
   const [syncDelay, setSyncDelay] = useState(0.0);
   const userStatsHeight = clsx(classes.paper, classes.fixedUserStatsHeight)
-  //TODO: Make sure that it doesn't make too many requests (check double renders etc)
   useEffect(() => {
     getDances(setBestMoves, setWorstMoves, name)
     getSyncDelay(setSyncDelay, name)

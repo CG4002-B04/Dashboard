@@ -5,6 +5,7 @@ import './EvalCardGroup.css'
 const ENDPOINT = 'http://localhost:5001';
 let socket = io(ENDPOINT);
 
+// Show the realtime positions and the dancers' movements
 function EvalCardGroup() {
   const [positionsToDancers, setPositiontoDancers] = useState(['unknown', 'unknown', 'unknown']);
   const [positions, setPositions] = useState(['1', '2', '3']);
@@ -13,8 +14,6 @@ function EvalCardGroup() {
 
   useEffect(() => {
     socket.on('DancerData', dancerData => {
-      //TODO: figure out why it only renders after the next setState
-      // setPositionToDacners only updates value for the next render.
       setPositiontoDancers([...positionsToDancers, positionsToDancers[dancerData.id - 1] = dancerData.name]);
     });
     socket.on('evalData', dataPoint => {

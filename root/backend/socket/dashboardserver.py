@@ -15,16 +15,19 @@ EN_FORMAT = "utf-8"
 SECRET_KEY = "0000000000000000"
 BUFF_SIZE = 256
 SIO_ADDRESS = 'http://localhost:5000'
-SUNFIRE_USER = "ivanandi"
-SUNFIRE_PASS = "ANDone61019980811297876123890"
+SUNFIRE_USER = "" # Fill with your own sunfire credentials
+SUNFIRE_PASS = "" 
+SIO_ADDRESS_EVAL = 'http://localhost:5001'
 class DashboardClient():
-    def __init__(self, ip_addr, secret_key, sio_address, buff_size=256):
+    def __init__(self, ip_addr, secret_key, sio_address, sio_address_eval, buff_size=256):
         self.ip_addr = ip_addr
         self.buff_size = buff_size
         self.secret_key = secret_key
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sio = socketio.Client()
         self.sio_address = sio_address           
+        self.sio_eval = socketio.Client()
+        self.sio_address_eval = sio_address_eval
 
     def decrypt_message(self, cipher_text):
         decoded_message = base64.b64decode(cipher_text)
@@ -76,6 +79,7 @@ class DashboardClient():
                     msg = msg.strip()
                     print(msg)
                     self.sio.emit('endpointData', msg)
+                    self.sio_eval.emit('endpointData', msg)
                     # Upload to DB
                 else:
                     raise ConnectionResetError
@@ -92,6 +96,7 @@ class DashboardClient():
         self.start_tunnel(SUNFIRE_USER, SUNFIRE_PASS)
         print(self.sio_address)
         self.sio.connect(self.sio_address)
+        self.sio_eval.connect(self.sio_address_eval)
         while True:
             try:
                 self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -107,5 +112,5 @@ class DashboardClient():
         print("[CLOSED] Dashboard socket has closed")
 
 if __name__ == '__main__':
-    dashboard_client = DashboardClient(HOST_ADDR, SECRET_KEY, SIO_ADDRESS, BUFF_SIZE)
+    dashboard_client = DashboardClient(HOST_ADDR, SECRET_KEY, SIO_ADDRESS, SIO_ADDRESS_EVAL, BUFF_SIZE)
     dashboard_client.run()

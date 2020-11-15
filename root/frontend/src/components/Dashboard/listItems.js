@@ -6,7 +6,6 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import {
-  BrowserRouter as Router,
   Link
 } from "react-router-dom";
 

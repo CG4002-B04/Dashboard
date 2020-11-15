@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Contains the group of charts that will show the sensor data
 function ChartGroup({dancer}) {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);

@@ -3,7 +3,7 @@ const Prediction = require('../db/models/prediction')
 //The accuracy for every moves for a dancer
 exports.move_accuracy_dancer = async function(req, res, next) {
   const dancerName = req.query.dancerName;
-  //const dances = ["windows", "pushback", "elbowlock", "rocket", "hair", "zigzag", "scarecrow", "shouldershrug"];
+  
   const dancesAccuracies = [["windowwipe", 0.0], ["pushback", 0.0], ["elbowlock", 0.0], ["rocket", 0.0], ["hair", 0.0], 
                             ["zigzag", 0.0], ["scarecrow", 0.0], ["shouldershrug", 0.0]]
   let accuracies = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
@@ -13,8 +13,6 @@ exports.move_accuracy_dancer = async function(req, res, next) {
     correctCounts[i] = await Prediction.countDocuments({dancer: dancerName, isCorrect: true, action: dancesAccuracies[i][0]})
     incorrectCounts[i] = await Prediction.countDocuments({dancer: dancerName, isCorrect: false, action: dancesAccuracies[i][0]})
     if (correctCounts[i] + incorrectCounts[i] !== 0) {
-      //console.log(dances[i], "Correct: ", correctCounts[i])
-      //console.log(dances[i], "Incorrect: ", incorrectCounts[i])
       dancesAccuracies[i][1] = parseInt((correctCounts[i] / (correctCounts[i] + incorrectCounts[i])) * 100) 
       accuracies[i] = parseInt((correctCounts[i] / (correctCounts[i] + incorrectCounts[i])) * 100) 
     }
@@ -37,7 +35,6 @@ exports.accuracy_dancer = async function (req, res, next) {
   res.status(200).send({accuracyDancer: accuracy});
 }
 
-// need to convert from string to float
 exports.sync_delay_dancer = async function (req, res, next) {
   console.log(req.body)
   const dancerName = req.body.dancerName;

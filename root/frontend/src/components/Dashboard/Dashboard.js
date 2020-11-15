@@ -121,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// The main dashboard component that contains all the other components
 function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);

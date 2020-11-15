@@ -30,6 +30,7 @@ const options = {
   },
 }
 
+// Get the overall dance accuracies 
 const getDanceAccuracies = async (setDanceAccuracies) => {
   try {
     const url = new URL('http://localhost:4000/prediction/moveAccuracyOverall')
@@ -41,6 +42,8 @@ const getDanceAccuracies = async (setDanceAccuracies) => {
     console.error(err.message);
   }
 }
+
+// Show the overall accuracy of the dacnces, shown as a bar chart
 const OverallDanceAccuracyBar = () => {
   const [danceAccuracies, setDanceAccuracies] = useState([0,0,0,0,0,0,0,0])
 

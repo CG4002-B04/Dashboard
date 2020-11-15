@@ -17,7 +17,7 @@ const chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
-
+// A single chart component used to show real time data of the sensors
 const Chart = ({metric, dancer, hand}) => {
   let sensorXData = 0;
   let sensorYData = 0;

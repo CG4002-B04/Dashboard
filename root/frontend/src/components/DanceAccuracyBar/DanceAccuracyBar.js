@@ -35,13 +35,14 @@ const options = {
   },
 }
 
+// Get the real time dance accuracies
 const DanceAccuracyBar = () => {
   const classes = useStyles();
   const danceAccuracyBarHeight = clsx(classes.paper, classes.fixedDanceAccuracyBarHeight);
   
   let numOfSamples = [0,0,0,0,0,0,0,0];
   let succSamples = [0,0,0,0,0,0,0,0];
-  let dances = ["windows", "pushback", "elbowlock", "rocket", "hair", "zigzag", "scarecrow", "shouldershrug"];
+  let dances = ["windowwipe", "pushback", "elbowlock", "rocket", "hair", "zigzag", "scarecrow", "shouldershrug"];
   const [windowsConsensus, setWindowsConsensus] = useState(0.0);
   const [pushbackConsensus, setPushbackConsensus] = useState(0.0);
   const [elbowlockConsensus, setElbowllockConsensus] = useState(0.0);
@@ -85,7 +86,7 @@ const DanceAccuracyBar = () => {
       }
       if (numOfSamples[i] !== 0) {
           switch (dances[i]) {
-          case "windows":
+          case "windowwipe":
             //console.log("windows.");
             setWindowsConsensus(prev => succSamples[i] / numOfSamples[i])
           break;

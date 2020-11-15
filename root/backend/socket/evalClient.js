@@ -4,6 +4,7 @@ const fs = require('fs');
 
 const filepath = "../db/csv/eval_data2.txt"
 
+// Generate simulated evaluation data
 // creating a custom socket client and connecting it....
 var client  = new net.Socket();
 client.connect({

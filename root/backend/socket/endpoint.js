@@ -6,6 +6,7 @@ let socketClient = io(ENDPOINT);
 const ENDPOINT_EVAL = 'http://localhost:5001'
 let socketClientEval = io(ENDPOINT_EVAL);
   
+// Endpoints to receive the simulated sensor and eval data from evalClient and sensorClient
 // creates the server
 var server = net.createServer();
 

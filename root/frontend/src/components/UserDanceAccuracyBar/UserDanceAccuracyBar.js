@@ -30,6 +30,7 @@ const options = {
   },
 }
 
+// Get the dance accuracies for the specific dancer from the endpoint
 const getDanceAccuracies = async (setDanceAccuracies, dancerName) => {
   try {
     const url = new URL('http://localhost:4000/prediction/moveAccuracyDancer')
@@ -42,6 +43,8 @@ const getDanceAccuracies = async (setDanceAccuracies, dancerName) => {
     console.error(err.message);
   }
 }
+
+// Display the dance accuracies for a specific dancer using a bar chart
 const UserDanceAccuracyBar = ({dancerName}) => {
   const [danceAccuracies, setDanceAccuracies] = useState([0,0,0,0,0,0,0,0])
 

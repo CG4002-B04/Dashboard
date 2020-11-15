@@ -1,10 +1,11 @@
+// Setting up the web server
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-//const path = require('path')
+
 const cookieParser = require('cookie-parser')
 const indexRouter = require('./routes/index')
-//const http = require('http')
+
 
 // Set up mongoose connection
 const mongoose = require('mongoose')

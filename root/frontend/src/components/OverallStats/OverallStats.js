@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Get the best moves and the worst moves overall
 const getDances = async (setBestMoves, setWorstMoves) => {
   try {
     const url = new URL('http://localhost:4000/prediction/moveAccuracyOverall')
@@ -42,6 +43,7 @@ const getDances = async (setBestMoves, setWorstMoves) => {
   }
 }
 
+// Get the overall average accuracy 
 const getAccuracy = async (setAccuracy) => {
   try {
     const url = new URL('http://localhost:4000/prediction/accuracyOverall')
@@ -54,6 +56,7 @@ const getAccuracy = async (setAccuracy) => {
   }
 }
 
+// Get the overall sync delay
 const getSyncDelay = async (setSyncDelay) => {
   try {
     const url = new URL('http://localhost:4000/prediction/syncDelayOverall')
@@ -67,6 +70,7 @@ const getSyncDelay = async (setSyncDelay) => {
   }
 }
 
+// Show the overall statistics / analytics of all the dancers
 function OverallStats() {
   const classes = useStyles();
   const [bestMoves, setBestMoves] = useState(['','',''])

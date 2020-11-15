@@ -17,7 +17,7 @@ const Prediction = prediction;
 
 app.use(cors());
 
-//TODO: Modularize the code
+// Server that receives the sensor data form the dashboardserver.py and emit it to the frontend
 
 //split to acceleration data and gyro data
 function parseSensorData(sensorData) {
@@ -46,7 +46,7 @@ function parseSensorData(sensorData) {
          ] 
 }
 
-
+// Saving the sensor data to MongoDB
 function saveSensorData(accelData, gyroData, hand, dancer) {
   const reading = new SensorReading({
     accelX: parseInt(accelData.x),
@@ -86,6 +86,7 @@ let dancer1;
 let dancer2;
 let dancer3;
 
+// Main logic to receive data from the dashboardserver.py, parse it and emit it to the frontend
 io.on('connect', (socket) => {
   console.log(`Socket ${socket.id} has just been connected`);
   
@@ -97,24 +98,24 @@ io.on('connect', (socket) => {
       io.sockets.emit('GyrometerData1Left', processedGyroData1Left);
       io.sockets.emit('AccelerometerData1Right', processedAccelData1Right);
       io.sockets.emit('GyrometerData1Right', processedGyroData1Right);
-      //saveSensorData(processedAccelData1Left, processedGyroData1Left, 'left', dancer1);
-      //saveSensorData(processedAccelData1Right, processedGyroData1Right, 'right', dancer1);
+      saveSensorData(processedAccelData1Left, processedGyroData1Left, 'left', dancer1);
+      saveSensorData(processedAccelData1Right, processedGyroData1Right, 'right', dancer1);
     } else if (data.includes("!D|2|")) { //data from dancer 2
       [processedAccelData2Left, processedGyroData2Left, processedAccelData2Right, processedGyroData2Right, dancer2] = parseSensorData(data);
       io.sockets.emit('AccelerometerData2Left', processedAccelData2Left);
       io.sockets.emit('GyrometerData2Left', processedGyroData2Left);
       io.sockets.emit('AccelerometerData2Right', processedAccelData2Right);
       io.sockets.emit('GyrometerData2Right', processedGyroData2Right);
-      //saveSensorData(processedAccelData2Left, processedGyroData2Left, 'left', dancer2);
-      //saveSensorData(processedAccelData2Right, processedGyroData2Right, 'right', dancer2);
+      saveSensorData(processedAccelData2Left, processedGyroData2Left, 'left', dancer2);
+      saveSensorData(processedAccelData2Right, processedGyroData2Right, 'right', dancer2);
     } else if (data.includes("!D|3|")) { //data from dancer 3
       [processedAccelData3Left, processedGyroData3Left, processedAccelData3Right, processedGyroData3Right, dancer3] = parseSensorData(data);
       io.sockets.emit('AccelerometerData3Left', processedAccelData3Left);
       io.sockets.emit('GyrometerData3Left', processedGyroData3Left);
       io.sockets.emit('AccelerometerData3Right', processedAccelData3Right);
       io.sockets.emit('GyrometerData3Right', processedGyroData3Right);
-      //saveSensorData(processedAccelData3Left, processedGyroData3Left, 'left', dancer3)
-      //saveSensorData(processedAccelData3Right, processedGyroData3Right, 'right', dancer3);
+      saveSensorData(processedAccelData3Left, processedGyroData3Left, 'left', dancer3)
+      saveSensorData(processedAccelData3Right, processedGyroData3Right, 'right', dancer3);
     } 
   });
 
