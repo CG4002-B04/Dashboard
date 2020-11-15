@@ -1,3 +1,4 @@
+// Create a callback to access the database
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 let callback, db;
