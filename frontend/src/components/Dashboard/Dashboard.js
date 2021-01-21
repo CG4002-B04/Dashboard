@@ -208,19 +208,13 @@ function Dashboard() {
               <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
-                    <UserStats name="JingXuan"/>
+                    <UserStats name="Alyssa"/>
                   </Grid>
                   <Grid item xs={12}>
-                    <UserStats name="Hans" />
+                    <UserStats name="Chris" />
                   </Grid>
                   <Grid item xs={12}>
-                    <UserStats name="JiaJian" />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <UserStats name="Shaun" />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <UserStats name="Ivan" />
+                    <UserStats name="James" />
                   </Grid>
                 </Grid>
                 <Box pt={4}>
