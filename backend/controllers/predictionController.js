@@ -67,8 +67,6 @@ exports.move_accuracy_overall = async function(req, res, next) {
     correctCounts[i] = await Prediction.countDocuments({isCorrect: true, action: dancesAccuracies[i][0]})
     incorrectCounts[i] = await Prediction.countDocuments({isCorrect: false, action: dancesAccuracies[i][0]})
     if (correctCounts[i] + incorrectCounts[i] !== 0) {
-      //console.log(dances[i], "Correct: ", correctCounts[i])
-      //console.log(dances[i], "Incorrect: ", incorrectCounts[i])
       dancesAccuracies[i][1] = parseInt((correctCounts[i] / (correctCounts[i] + incorrectCounts[i])) * 100) 
       accuracies[i] = parseInt((correctCounts[i] / (correctCounts[i] + incorrectCounts[i])) * 100) 
     }
@@ -86,7 +84,6 @@ exports.accuracy_overall = async function (req, res, next) {
     accuracy = correctCount / (incorrectCount + correctCount);
   }
   console.log("accuracy", accuracy);
-  //cannot send number
   res.status(200).send({accuracy: accuracy});
 }
 
