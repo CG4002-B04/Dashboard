@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const filepath = '../db/csv/raw_data.txt'
 
-// Generate simulated sensor data
+// Generate simulated sensor data and evaluation data
 // creating a custom socket client and connecting it....
 var client  = new net.Socket();
 client.connect({

@@ -2,7 +2,7 @@ var net = require('net');
 const readline = require('readline');
 const fs = require('fs');
 
-const filepath = "../db/csv/eval_data2.txt"
+const filepath = "../db/csv/eval_data.txt"
 
 // Generate simulated evaluation data
 // creating a custom socket client and connecting it....

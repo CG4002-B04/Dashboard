@@ -4,6 +4,7 @@
   "description": "The backend for CG4002 Dashboard",
   "main": "server.js",
   "scripts": {
+    "start": "concurrently --names \"EVALSERVER,SENSORSERVER,ENDPOINT\" -c \"bgBlue.bold,bgMagenta.bold,bgCyan.bold\" \"node evalServer.js\" \"node sensorServer.js\" \"node ./socket/endpoint.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ivan Andika Lie",
@@ -14,6 +15,7 @@
   "dependencies": {
     "async": "^3.2.0",
     "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
