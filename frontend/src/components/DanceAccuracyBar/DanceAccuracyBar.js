@@ -58,7 +58,6 @@ const DanceAccuracyBar = () => {
     console.log('danceaccuracy')
     let danceMoves = dataPoint.danceMoves.split(" ");
     // only infer correct dance move if two people are dancing for the same thing
-    // TODO: don't count if it's no match
     if (danceMoves[0] === danceMoves[1] && danceMoves[1] === danceMoves[2]) {
       danceMove = danceMoves[0];
     } else if (danceMoves[0] === danceMoves[1] && danceMoves[1] !== danceMoves[2]) {
@@ -87,35 +86,27 @@ const DanceAccuracyBar = () => {
       if (numOfSamples[i] !== 0) {
           switch (dances[i]) {
           case "windowwipe":
-            //console.log("windows.");
             setWindowsConsensus(prev => succSamples[i] / numOfSamples[i])
           break;
           case "pushback":
-            //console.log("pushback.");
             setPushbackConsensus(prev => succSamples[i] / numOfSamples[i])
           break;
           case "elbowlock":
-            //console.log("elbowlock.");
             setElbowllockConsensus(prev => succSamples[i] / numOfSamples[i])
           break;
           case "rocket":
-            //console.log("rocket.");
             setRocketConsensus(prev => succSamples[i] / numOfSamples[i])
           break;
           case "hair":
-            //console.log("hair.");
             setHairConsensus(prev => succSamples[i] / numOfSamples[i])
           break;
           case "zigzag":
-            //console.log("zigzag.");
             setZigzagConsensus(prev => succSamples[i] / numOfSamples[i])
           break;
           case "scarecrow":
-            //console.log("scarecrow.");
             setScarecrowConsensus(prev => succSamples[i] / numOfSamples[i])
           break;
           case "shouldershrug":
-            //console.log("shouldershrug.");
             setShoulderShrugConsensus(prev => succSamples[i] / numOfSamples[i])
           break;
           default:

@@ -7,7 +7,7 @@ let socket = io(ENDPOINT);
 
 // Show the realtime positions and the dancers' movements
 function EvalCardGroup() {
-  const [positionsToDancers, setPositiontoDancers] = useState(['unknown', 'unknown', 'unknown']);
+  const [positionsToDancers, setPositiontoDancers] = useState(['Alyssa', 'Chris', 'James']);
   const [positions, setPositions] = useState(['1', '2', '3']);
   const [danceMoves, setDanceMoves] = useState(["Neutral", "Neutral", "Neutral"]);
   const [confidenceScores, setConfidenceScores] = useState(["0", "0", "0"]);

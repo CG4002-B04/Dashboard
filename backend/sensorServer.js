@@ -19,7 +19,7 @@ app.use(cors());
 
 // Server that receives the sensor data form the dashboardserver.py and emit it to the frontend
 
-//split to acceleration data and gyro data
+// Split to acceleration data and gyro data
 function parseSensorData(sensorData) {
   let splitData = sensorData.split('|');
   return [{
