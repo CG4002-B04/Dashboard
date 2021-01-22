@@ -4,7 +4,7 @@
   "description": "The backend for CG4002 Dashboard",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently --names \"EVALSERVER,SENSORSERVER,ENDPOINT\" -c \"bgBlue.bold,bgMagenta.bold,bgCyan.bold\" \"node evalServer.js\" \"node sensorServer.js\" \"node ./socket/endpoint.js\"",
+    "start": "concurrently --names \"EVALSERVER,SENSORSERVER,ENDPOINT,APP\" -c \"bgBlue.bold,bgMagenta.bold,bgCyan.bold,bgYellow.bold\" \"node evalServer.js\" \"node sensorServer.js\" \"node ./socket/endpoint.js\" \"node index.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ivan Andika Lie",

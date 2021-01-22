@@ -10,12 +10,15 @@ const mongoose = require('mongoose');
 const sensorReading = require('./db/models/sensorReading');
 const prediction = require('./db/models/prediction.js');
 const evaluationGroup = require('./db/models/evaluationGroup');
+const runScript = require('./util/runScript')
 mongoose.connect('mongodb://localhost:27017/CG4002_Dashboard', {userMongoclient: true});
 mongoose.Promise = global.Promise;
 const SensorReading = sensorReading;
 const Prediction = prediction;
 
 app.use(cors());
+
+
 
 // Parse the dancer data to its id and the name
 function parseDancerData(dancerData) {
@@ -240,6 +243,11 @@ io.on('connect', (socket) => {
       io.sockets.emit('DancerData', processedDancerData);
     } 
   });
+
+  socket.on('simulateEval', () => {
+    runScript.runScript('./socket/evalClient.js');
+    console.log('Running simulated evaluation data');
+  })
 
   socket.on('error', (err) => {
     console.log(err);

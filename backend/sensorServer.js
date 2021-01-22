@@ -5,6 +5,7 @@ const cors = require('cors');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+const runScript = require('./util/runScript')
 
 const mongoose = require('mongoose');
 const sensorReading = require('./db/models/sensorReading');

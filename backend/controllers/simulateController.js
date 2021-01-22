@@ -1,42 +1,25 @@
-const childProcess = require('child_process');
+const io = require('socket.io-client')
 
-function runScript(scriptPath, callback) {
-    // keep track of whether callback has been invoked to preven mutliple invocations
-    let invoked = false;
+const ENDPOINT = 'http://localhost:5000';
+let socketClient = io(ENDPOINT);
+const ENDPOINT_EVAL = 'http://localhost:5001'
+let socketClientEval = io(ENDPOINT_EVAL);
 
-    let process = childProcess.fork(scriptPath);
 
-    // listen for errors as they may preven the exit event from firing
-    process.on('error', function (err) {
-        if (invoked) return;
-        invoked = true;
-        callback(err);
-    })
-
-    // execute the callback once the process has finished running
-    process.on('exit', function (code) {
-        if (invoked) return;
-        invoked = true;
-        const err = code === 0 ? null : new Error('exit code ' + code);
-        callback(err);
-    });
-}
 exports.simulateEval= async function(req, res, next) {
-    runScript('../socket/evalClient.js', function(err) {
-        if (err) {
-            res.status(500).send({status: false, errors: "Something went wrong when starting simulation for evaluation data"});
-        } 
-        console.log('finished running simulation for evaluationClient ')
-    })    
-    res.status(200).send({status: true, comment: "Eval simulation data has finished running"});
+    socketClientEval.emit('simulateEval', (error) => {
+        if (error) {
+            res.status(500).send({status: false, errors: error});
+        }
+    });
+    res.status(200).send({status: true, comment: "Eval simulation data is running"});
 }
 
 exports.simulateAll = async function(req, res, next) {
-    runScript('../socket/simulateClient.js', function(err) {
-        if (err) {
-             res.status(500).send({status: false, errors: "Something went wrong when starting overall data simulation "});
+    socketClient.emit('simulate', (error) => {
+        if (error) {
+            res.status(500).send({status: false, errors: error});
         }
-        console.log('finished running overall simulation');
     })
-    res.status(200).send({status: true, comment: "Overall data simulation has finished running"})
+    res.status(200).send({status: true, comment: "Overall data simulation is running"})
 }

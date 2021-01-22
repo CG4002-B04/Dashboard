@@ -2,7 +2,7 @@ var net = require('net');
 const readline = require('readline');
 const fs = require('fs');
 
-const filepath = "../db/csv/eval_data.txt"
+const filepath = "./db/csv/eval_data.txt" // follows the relative path of index.js
 
 // Generate simulated evaluation data
 // creating a custom socket client and connecting it....
@@ -53,3 +53,5 @@ processLineByLine();
 client.on('data',function(data){
   console.log('Data from server:' + data);
 })
+
+module.exports = client;
