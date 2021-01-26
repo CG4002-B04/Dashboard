@@ -1,11 +1,16 @@
 # CG4002 Dashboard
 ## Screenshots
 <br />
-![](./frontend/public/Screenshot1.png)
+![](./frontend/public/Screenshot1.PNG)
+
 <br />
-![](./frontend/public/Screenshot2.png)
+![](./frontend/public/Screenshot2.PNG)
+
 <br />
-![](./frontend/public/Screenshot3.png)
+![](./frontend/public/Screenshot3.PNG)
+
+<br />
+
 ## How to start the frontend
 ### Prerequisite: Install Node.js and NPM
 * Go to `/frontend`
