@@ -1,12 +1,14 @@
 # CG4002 Dashboard
 ## Screenshots
-<br />
-![](./frontend/public/Screenshot1.PNG)
+
+![](frontend/public/Screenshot1.PNG)
 
 <br />
-![](./frontend/public/Screenshot2.PNG)
+
+![](frontend/public/Screenshot2.PNG)
 
 <br />
+
 ![](./frontend/public/Screenshot3.PNG)
 
 <br />
