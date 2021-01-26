@@ -120,6 +120,11 @@ io.on('connect', (socket) => {
     } 
   });
 
+  /*
+  socket.on('simulate', () => {
+    runScript.runScript('./socket/simulateClient.js')
+  })
+  */
   socket.on('error', (err) => {
     console.log(err);
   });

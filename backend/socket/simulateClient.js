@@ -2,7 +2,7 @@ var net = require('net');
 const readline = require('readline');
 const fs = require('fs');
 
-const filepath = './db/csv/raw_data.txt' // follows the relative path of index.js
+const filepath = '../db/csv/raw_data.txt' // follows the relative path of index.js
 //const filepath = '../db/csv/raw_data.txt' if you want to run it independently
 
 // Generate simulated sensor data and evaluation data

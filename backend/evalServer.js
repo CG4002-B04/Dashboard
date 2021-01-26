@@ -11,7 +11,7 @@ const sensorReading = require('./db/models/sensorReading');
 const prediction = require('./db/models/prediction.js');
 const evaluationGroup = require('./db/models/evaluationGroup');
 const runScript = require('./util/runScript')
-mongoose.connect('mongodb://localhost:27017/CG4002_Dashboard', {userMongoclient: true});
+mongoose.connect('mongodb://localhost:27017/CG4002_Dashboard', {userMongoclient: true, useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 const SensorReading = sensorReading;
 const Prediction = prediction;
@@ -244,10 +244,12 @@ io.on('connect', (socket) => {
     } 
   });
 
+  /*
   socket.on('simulateEval', () => {
     runScript.runScript('./socket/evalClient.js');
     console.log('Running simulated evaluation data');
   })
+  */
 
   socket.on('error', (err) => {
     console.log(err);
@@ -258,4 +260,4 @@ io.on('connect', (socket) => {
   });
 })
 
-server.listen(process.env.PORT || 5001, () => console.log(`Server has started`))
+server.listen(process.env.PORT || 5001, () => console.log(`Server has started at localhost:${process.env.PORT || 5001}`))
