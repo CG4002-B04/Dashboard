@@ -4836,19 +4836,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.1.tgz#5f69b813376cee4fd0474a3aba835df04ab763b7"
-  integrity sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
-
-fontsource-roboto@^3.0.3:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/fontsource-roboto/-/fontsource-roboto-3.1.5.tgz#d5da8bac968db7911e20fd2fb6c227d405f86cba"
-  integrity sha512-DXSE7/F/6AsKcRJX4VSi3bGrEx0xiaqieeV2W7UH9JFk6tt1U86NoWwy2iNPoUzGtEyQsasilwhTrMJm7wM+Ew==
-
-fontsource-roboto@^3.0.3:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/fontsource-roboto/-/fontsource-roboto-3.1.5.tgz#d5da8bac968db7911e20fd2fb6c227d405f86cba"
-  integrity sha512-DXSE7/F/6AsKcRJX4VSi3bGrEx0xiaqieeV2W7UH9JFk6tt1U86NoWwy2iNPoUzGtEyQsasilwhTrMJm7wM+Ew==
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
+  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
 
 fontsource-roboto@^3.0.3:
   version "3.1.5"
